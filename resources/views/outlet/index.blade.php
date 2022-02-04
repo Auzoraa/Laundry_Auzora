@@ -1,14 +1,14 @@
 @extends('template.header')
 @section('content')
       <!-- Default box -->
-<div class="card">
-<div class="card-header">
-    <h3 class="card-title justify-content-center"><b>Outlet</b></h3>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="d-flex card-title justify-content-center"><b>Outlet</b></h3>
+          <button type="button" class="d-flex btn btn-sm btn-dark mb-2 ms-auto" data-toggle="modal" data-target="#exampleModalInput">
+              Tambah Data
+            </button>
 </div>
 <div class="card-body">
-    <button type="button" class="btn btn-dark mb-2 ms-auto" data-toggle="modal" data-target="#exampleModalInput">
-        Tambah Data
-      </button>
     <div class="table-stats order-table ov-h">
         <table class="table " id="tbl-outlet">
             <thead>

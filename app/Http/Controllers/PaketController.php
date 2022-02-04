@@ -14,7 +14,8 @@ class PaketController extends Controller
      */
     public function index()
     {
-        //
+        $data = Paket::all();
+        return view('paket.index', compact('data'));
     }
 
     /**
@@ -35,16 +36,24 @@ class PaketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = New Paket;
+        // $data->id = $request->id;
+        $data->id_outlet = $request->id_outlet;
+        $data->jenis = $request->jenis;
+        $data->nama_paket = $request->nama_paket;
+        $data->harga = $request->harga;
+        $data->save();
+
+        return redirect('/paket')->with('paketInput', 'Paket Berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Paket  $paket
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function show(Paket $paket)
+    public function show(Paket $Paket)
     {
         //
     }
@@ -52,10 +61,10 @@ class PaketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Paket  $paket
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function edit(Paket $paket)
+    public function edit(Paket $Paket)
     {
         //
     }
@@ -64,22 +73,31 @@ class PaketController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Paket  $paket
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Paket $paket)
+    public function update(Request $request, Paket $Paket)
     {
-        //
+        $data = Paket::find($request->id);
+        $data->id_outlet = $request->id_outlet;
+        $data->jenis = $request->jenis;
+        $data->nama_paket = $request->nama_paket;
+        $data->harga = $request->harga;
+        $data->save();
+
+        return redirect('/paket')->with('paketUpdate', 'Paket Berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Paket  $paket
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Paket $paket)
+    public function destroy($id)
     {
-        //
+        $data = Paket::find($id);
+        $data->delete();
+        return redirect('/paket')->with('paketDelete', 'Paket Berhasil dihapus'); 
     }
 }

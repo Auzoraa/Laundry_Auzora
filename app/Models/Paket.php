@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TbPaket extends Model
+class Paket extends Model
 {
     use HasFactory;
     protected $table = 'paket';

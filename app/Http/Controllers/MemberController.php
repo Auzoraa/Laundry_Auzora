@@ -14,7 +14,8 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        $data = Member::all();
+        return view('member.index', compact('data'));
     }
 
     /**
@@ -35,51 +36,68 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = New Member;
+        $data->nama = $request->nama;
+        $data->alamat = $request->alamat;
+        $data->jenis_kelamin = $request->jenis_kelamin;
+        $data->tlp = $request->tlp;
+        $data->save();
+
+        return redirect('/member')->with('memberInput', 'Member Berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Member  $Member
      * @return \Illuminate\Http\Response
      */
-    public function show(Member $member)
+    public function show(Member $id)
     {
-        //
+        $data = Member::find($id);
+        return view('member.index', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Member  $Member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $member)
+    public function edit(Member $request)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Member  $Member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, Member $Member)
     {
-        //
+        $data = Member::find($request->id);
+        $data->nama = $request->nama;
+        $data->alamat = $request->alamat;
+        $data->jenis_kelamin = $request->jenis_kelamin;
+        $data->tlp = $request->tlp;
+        $data->save();
+
+        return redirect('/member')->with('memberUpdate', 'Member Berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\Member  $Member
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Member $member)
+    public function destroy( $id)
     {
-        //
+        $data = Member::find($id);
+        $data->delete();
+        return redirect('/member')->with('memberDelete', 'Member Berhasil dihapus'); 
     }
 }
