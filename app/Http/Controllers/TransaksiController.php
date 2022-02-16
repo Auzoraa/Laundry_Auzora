@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\Member;
+use App\Models\Paket;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -14,7 +16,9 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        //
+        $data['member'] = Member::get();
+        $data['paket'] = Paket::where('id_outlet', auth()->user()->id_outlet)->get();
+        return view('transaksi.index', ["title" => "Transaksi"])->with($data);
     }
 
     /**

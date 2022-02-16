@@ -15,7 +15,7 @@ class OutletController extends Controller
     public function index()
     {
         $data = Outlet::all();
-        return view('outlet.index', compact('data'));
+        return view('outlet.index', compact('data'), [ "title" => "Outlet" ]);
     }
 
     /**
@@ -93,9 +93,16 @@ class OutletController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $data = Outlet::find($id);
-        $data->delete();
-        return redirect('/outlet')->with('outletDelete', 'Outlet Berhasil dihapus'); 
-    }
+{
+    Outlet::find($id)->delete();
+    return redirect()->route('outlet.index')
+                    ->with('outletDelete','User deleted successfully');
+}
+    // public function destroy($id)
+    // {
+        
+    //     $data = Outlet::find($id);
+    //     $data->delete();
+    //     return redirect('/outlet')->with('outletDelete', 'Outlet Berhasil dihapus'); 
+    // }
 }

@@ -2,17 +2,20 @@
 @section('content')
       <!-- Default box -->
 <div class="card">
-<div class="card-header">
-    <h3 class="card-title">Member</h3>
-</div>
-<div class="card-body">
-    <button type="button" class="btn btn-dark mt-1 mb-2 ms-1 " data-toggle="modal" data-target="#exampleModalInput">
+  <div class="card-header">
+    <button type="button" class="d-flex btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModalInput">
         Tambah Data
       </button>
+      <div class="card-tools" style="margin-top: -20px">
+        <!-- Maximize Button -->
+        <button type="button" class="btn btn-tool d-flex ms-auto" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+      </div>
+  </div>
+  <div class="card-body">
         <table class="table " id="tbl-member">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No.</th>
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Jenis Kelamin</th>
@@ -32,12 +35,16 @@
                   <td>{{ $item->jenis_kelamin }}</td>
                   <td>{{ $item->tlp }}</td>
                   <td>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalDelete{{ $item->id }}">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    <div class="d-flex">
+                    <button type="button" class="badge btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
-                    </button>
+                    </button> | 
+                    <form action="{{ route('member.destroy', $item->id) }}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <button type="button" class="badge btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
+                    </form>
+                  </div>
                   </td>
                 </tr>
               @endforeach
@@ -63,24 +70,24 @@
                     <div class="mb-2">
                       <input type="hidden" class="form-control" id="id" name="id">
                     </div>
-                    <div class="mb-2">
-                      <label for="nama">Nama Member</label>
+                    <div class="form-floating mb-2">
                       <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Member">
+                      <label for="nama">Nama Member</label>
                     </div>
-                    <div class="mb-2">
-                      <label for="alamat">Alamat</label>
+                    <div class="form-floating mb-2">
                       <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
+                      <label for="alamat">Alamat</label>
                     </div>
-                    <div class="mb-2">
-                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select id="jenis_kelamin" name="jenis_kelamin">
-                            <option value="L">Laki-laki</option>
+                    <div class="form-floating mb-2">
+                      <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
+                        <option value="L">Laki-laki</option>
                             <option value="P">Perempuan</option>
-                        </select>
+                          </select>
+                          <label for="jenis_kelamin">Jenis Kelamin</label>
                     </div>
-                    <div class="mb-2">
-                        <label for="tlp">No.Phone</label>
-                        <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
+                    <div class="form-floating mb-2">
+                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
+                      <label for="tlp">No.Phone</label>
                       </div>
                     <button class="w-100 btn btn-lg btn-dark swalDefaultmemberInput" type="submit">Tambah Member</button>
                 </form>
@@ -108,24 +115,24 @@
               <label for="id">No.</label>
               <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
             </div>
-              <div class="mb-2">
-                <label for="nama">Nama Member</label>
+              <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
+                <label for="nama">Nama Member</label>
               </div>
-              <div class="mb-2">
-                <label for="alamat">Alamat</label>
+              <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
+                <label for="alamat">Alamat</label>
               </div>
-              <div class="mb-2">
-                  <label for="jenis_kelamin">Jenis Kelamin</label>
-                  <select id="jenis_kelamin" name="jenis_kelamin">
-                      <option value="L">Laki-laki</option>
+              <div class="form-floating mb-2">
+                <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
+                  <option value="L">Laki-laki</option>
                       <option value="P">Perempuan</option>
-                  </select>
+                    </select>
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
               </div>
-              <div class="mb-2">
-                  <label for="tlp">No.Phone</label>
-                  <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
+                <label for="tlp">No.Phone</label>
                 </div>
                 <button class="w-100 btn btn-lg btn-dark swalDefaultmemberUpdate" type="submit">Update Member</button>
           </form>
@@ -165,6 +172,24 @@
   </div>
 @endforeach
 @push('script')
+<script>
+  function deleteConfirmation(e) {
+    e.preventDefault()
+    Swal.fire({
+      title: 'Peringatan !!!',
+      icon: 'warning',
+      text: 'Apakah anda yakin ingin menghapus?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Hapus!'
+    }).then((result) => {
+      if(result.value) {
+        $(e.target.closest('form')).submit();
+      }
+    })
+  }
+</script>
     @if (session('memberInput'))
   <script>
     $(function(){

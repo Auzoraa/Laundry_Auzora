@@ -23,7 +23,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function authenticate()
+    public function authenticate(Request $request)
     {
         {
             $credentials = $request->validate([
@@ -33,10 +33,17 @@ class LoginController extends Controller
     
             if(Auth::attempt($credentials)){
                 $request->session()->regenerate();
-                return redirect()->intended('/')->with('loginBerhasil', 'Login Berhasil');
+                if(Auth::user()->role == 'admin'){
+                    return redirect()->route('a.home');
+                }elseif(Auth::user()->role == 'kasir'){
+                    return redirect()->route('k.home');
+                }elseif(Auth::user()->role == 'owner'){
+                    return redirect()->route('o.home');
+                }
+                return redirect()->intended('/home')->with('loginBerhasil', 'Login Berhasil');
             }
     
-            return redirect('/')->with('loginError', 'Login gagal!');
+            return redirect('/login')->with('loginError', 'Login gagal!');
     
         }
     }
@@ -47,21 +54,12 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        {
-            $credentials = $request->validate([
-                'name' => 'required',
-                'password' => 'required'
-            ]);
-    
-            if(Auth::attempt($credentials)){
-                $request->session()->regenerate();
-                return redirect()->intended('/')->with('loginBerhasil', 'Login Berhasil');
-            }
-    
-            return redirect('/')->with('loginError', 'Login gagal!');
-        }
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 
     /**

@@ -1,19 +1,22 @@
 @extends('template.header')
 @section('content')
       <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="d-flex card-title justify-content-center"><b>Outlet</b></h3>
-          <button type="button" class="d-flex btn btn-sm btn-dark mb-2 ms-auto" data-toggle="modal" data-target="#exampleModalInput">
-              Tambah Data
-            </button>
+<div class="card">
+  <div class="card-header">
+    <button type="button" class="d-flex btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModalInput">
+      Tambah Data
+    </button>
+    <div class="card-tools" style="margin-top: -20px">
+      <!-- Maximize Button -->
+      <button type="button" class="btn btn-tool d-flex ms-auto" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+    </div>
 </div>
 <div class="card-body">
     <div class="table-stats order-table ov-h">
         <table class="table " id="tbl-outlet">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No.</th>
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>No.Phone</th>
@@ -31,12 +34,38 @@
                   <td>{{ $item->alamat }}</td>
                   <td>{{ $item->tlp }}</td>
                   <td>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalDelete{{ $item->id }}">
+                    {{-- {!! Form::open(['method' => 'DELETE','route' => ['outlet.destroy', $item->id],'style'=>'display:inline']) !!}
+                      <button onclick="
+                      swal({
+                        title: 'Esta seguro de realizar esta Acción?',
+                        text: 'Si procede este usuario será eliminado!',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Eliminar!',
+                        cancelButtonText: 'Cancelar',
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                      },
+                      function(){
+                        swal('Usuario eliminado!', 'Este usuario fue eliminado de nuestros registros.', 'success');
+                      });"
+                        class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar usuario"> <i class="material-icons">delete</i> 
+                      </button>
+                      {!! Form::close() !!} --}}
+                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalDelete{{ $item->id }}">
                       <i class="bi bi-trash-fill"></i>
-                    </button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    </button> --}}
+                    <div class="d-flex">
+                    <button type="button" class="badge btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
-                    </button>
+                    </button>|
+                    <form action="{{ route('outlet.destroy', $item->id) }}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <button type="button" class="badge btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
+                    </form>
+                    </div>
                   </td>
                 </tr>
               @endforeach
@@ -63,17 +92,17 @@
                     <div class="mb-2">
                       <input type="hidden" class="form-control" id="id" name="id">
                     </div>
-                    <div class="mb-2">
-                      <label for="nama">Nama Outlet</label>
+                    <div class="form-floating mb-2">
                       <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Outlet">
+                      <label for="nama">Nama Outlet</label>
                     </div>
-                    <div class="mb-2">
-                      <label for="alamat">Alamat</label>
+                    <div class="form-floating mb-2">
                       <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
+                      <label for="alamat">Alamat</label>
                     </div>
-                    <div class="mb-2">
-                        <label for="tlp">No.Phone</label>
-                        <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
+                    <div class="form-floating mb-2">
+                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
+                      <label for="tlp">No.Phone</label>
                       </div>
                     <button class="w-100 btn btn-lg btn-dark swalDefaultoutletInput" type="submit">Tambah Outlet</button>
                 </form>
@@ -97,21 +126,21 @@
           <form method="POST" action="{{ route('outlet.update', $item->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
-            <div class="mb-2">
-              <label for="id">No.</label>
+            <div class="form-floating mb-2">
               <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
+              <label for="id">No.</label>
             </div>
-              <div class="mb-2">
-                <label for="nama">Nama Outlet</label>
+              <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
+                <label for="nama">Nama Outlet</label>
               </div>
-              <div class="mb-2">
-                <label for="alamat">Alamat</label>
+              <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
+                <label for="alamat">Alamat</label>
               </div>
-              <div class="mb-2">
-                  <label for="tlp">No.Phone</label>
-                  <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
+                <label for="tlp">No.Phone</label>
                 </div>
                 <button class="w-100 btn btn-lg btn-dark swalDefaultoutletUpdate" type="submit">Update Outlet</button>
           </form>
@@ -152,6 +181,24 @@
 @endforeach
 
 @push('script')
+  <script>
+    function deleteConfirmation(e) {
+      e.preventDefault()
+      Swal.fire({
+        title: 'Peringatan !!!',
+        icon: 'warning',
+        text: 'Apakah anda yakin ingin menghapus?',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!'
+      }).then((result) => {
+        if(result.value) {
+          $(e.target.closest('form')).submit();
+        }
+      })
+    }
+  </script>
     @if (session('outletInput'))
   <script>
     $(function(){
