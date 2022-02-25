@@ -12,4 +12,6 @@ class DetailTransaksi extends Model
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
 }

@@ -18,6 +18,7 @@ class MemberController extends Controller
         return view('member.index', compact('data'), [ "title" => "Member" ]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -64,10 +65,7 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $Member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $request)
-    {
 
-    }
 
     /**
      * Update the specified resource in storage.
@@ -100,4 +98,5 @@ class MemberController extends Controller
         $data->delete();
         return redirect('/member')->with('memberDelete', 'Member Berhasil dihapus'); 
     }
+
 }

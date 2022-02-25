@@ -3,13 +3,9 @@
       <!-- Default box -->
 <div class="card">
   <div class="card-header">
-    <button type="button" class="d-flex btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModalInput">
+    <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
       Tambah Data
     </button>
-    <div class="card-tools" style="margin-top: -20px">
-      <!-- Maximize Button -->
-      <button type="button" class="btn btn-tool d-flex ms-auto" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-    </div>
 </div>
 <div class="card-body">
     <div class="table-stats order-table ov-h">
@@ -57,9 +53,9 @@
                       <i class="bi bi-trash-fill"></i>
                     </button> --}}
                     <div class="d-flex">
-                    <button type="button" class="badge btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    <button type="button" class="badge btn-primary" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
-                    </button>|
+                    </button>
                     <form action="{{ route('outlet.destroy', $item->id) }}" method="POST">
                       @method('DELETE')
                       @csrf
@@ -93,18 +89,18 @@
                       <input type="hidden" class="form-control" id="id" name="id">
                     </div>
                     <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Outlet">
                       <label for="nama">Nama Outlet</label>
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Outlet">
                     </div>
                     <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
                       <label for="alamat">Alamat</label>
+                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
                     </div>
                     <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
                       <label for="tlp">No.Phone</label>
+                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
                       </div>
-                    <button class="w-100 btn btn-lg btn-dark swalDefaultoutletInput" type="submit">Tambah Outlet</button>
+                    <button class="w-100 btn btn-lg btn-primary swalDefaultoutletInput" type="submit">Tambah Outlet</button>
                 </form>
               </div>
             </div>
@@ -113,41 +109,41 @@
 
 {{-- Update --}}
 @foreach ($data as $item)
-  <div class="modal fade" id="exampleModalUpdate{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title fw-normal" id="exampleModalLabel">Update Outlet</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" action="{{ route('outlet.update', $item->id) }}" enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
-            <div class="form-floating mb-2">
-              <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
-              <label for="id">No.</label>
-            </div>
-              <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
-                <label for="nama">Nama Outlet</label>
-              </div>
-              <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
-                <label for="alamat">Alamat</label>
-              </div>
-              <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
-                <label for="tlp">No.Phone</label>
-                </div>
-                <button class="w-100 btn btn-lg btn-dark swalDefaultoutletUpdate" type="submit">Update Outlet</button>
-          </form>
-        </div>
+<div class="modal fade" id="exampleModalUpdate{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Outlet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
       </div>
-    </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('outlet.update', $item->id) }}" enctype="multipart/form-data">
+          @csrf
+          @method('PATCH')
+          <div class="form-floating mb-2">
+            <label for="id">No.</label>
+            <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
+          </div>
+            <div class="form-floating mb-2">
+              <label for="nama">Nama Outlet</label>
+              <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
+            </div>
+            <div class="form-floating mb-2">
+              <label for="alamat">Alamat</label>
+              <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
+            </div>
+            <div class="form-floating mb-2">
+              <label for="tlp">No.Phone</label>
+              <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
+              </div>
+              <button class="w-100 btn btn-lg btn-primary swalDefaultoutletUpdate" type="submit">Update Outlet</button>
+        </form>
+            </div>
+          </div>
   </div>
+</div>
 @endforeach
 
 {{-- Delete --}}
@@ -166,7 +162,7 @@
                 <h5>Apakah anda yakin ingin menghapus? {{ $item->nama }}</h5>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
                   <form action="{{ route('outlet.destroy', $item->id) }}" method="post">
                     @csrf
                     @method("DELETE")

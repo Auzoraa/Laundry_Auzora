@@ -1,15 +1,35 @@
 @extends('template.header')
 @section('content')
       <!-- Default box -->
+      {{-- <div class="card">
+        <div class="card-body">
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <ul>
+            @foreach ($errorrs->any() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+      </div>
+      @endif
+      @if (session('success'))
+          <div class="alert alert-success" role="alert" id="success-alert">
+            {{ session('seccess') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      @endif
+      </div>
+      </div> --}}
 <div class="card">
   <div class="card-header">
-    <button type="button" class="d-flex btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModalInput">
+    <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
       Tambah Data
     </button>
-    <div class="card-tools" style="margin-top: -20px">
-      <!-- Maximize Button -->
-      <button type="button" class="btn btn-tool d-flex ms-auto" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-    </div>
 </div>
 <div class="card-body">
         <table class="table " id="tbl-paket">
@@ -33,12 +53,12 @@
                   <td>{{ $item->id_outlet }}</td>
                   <td>{{ $item->jenis }}</td>
                   <td>{{ $item->nama_paket }}</td>
-                  <td>{{ $item->harga }}</td>
+                  <td class="format-number">Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                   <td>
                     <div class="d-flex">
-                    <button type="button" class="badge btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    <button type="button" class="badge btn-primary" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
-                    </button> |
+                    </button>
                     <form action="{{ route('paket.destroy', $item->id) }}" method="POST">
                       @method('DELETE')
                       @csrf
@@ -67,38 +87,44 @@
         <div class="modal-body">
           <form method="POST" action="{{ route('paket.store') }}">
             @csrf
-                    <div class="mb-2">
-                      <input type="hidden" class="form-control" id="id" name="id">
-                    </div>
-                    <div class="form-floating mb-2">
-                      <select id="id_outlet" name="id_outlet" class="form-select">
-                        @foreach ($outlet as $item)
-                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                        @endforeach
-                      </select>
-                      <label for="id_outlet">Id Outlet</label>
-                      </div>
-                      <div class="form-floating mb-2">
-                        <select id="jenis" name="jenis" class="form-select">
-                          <option value="kiloan">Kiloan</option>
-                            <option value="selimut">Selimut</option>
-                            <option value="bed_cover">Bed Cover</option>
-                            <option value="lain">Lain</option>
-                          </select>
-                          <label for="jenis">Jenis</label>
-                        </div>
-                      <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Nama">
-                        <label for="nama_paket">Nama</label>
-                      </div>
-                    <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Paket">
-                      <label for="harga">Harga Paket</label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-dark swalDefaultpaketInput" type="submit">Tambah Paket</button>
-                </form>
+            <div class="mb-2">
+              <input type="hidden" class="form-control" id="id" name="id">
+            </div>
+            <div class="form-floating mb-2">
+                <div class="section-title mt-0">Id Outlet</div>
+                    <div class="form-group">
+                      <select id="id_outlet" name="id_outlet" class="custom-select">
+                      <option selected>-- Pilih Id Outlet --</option>
+                      @foreach ($outlet as $item)
+                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                    @endforeach
+                  </select>
               </div>
             </div>
+              <div class="form-floating mb-2">
+                <div class="section-title mt-0">Jenis</div>
+                    <div class="form-group">
+                      <select class="custom-select" id="jenis" name="jenis">
+                        <option selected>-- Pilih Jenis Laundry --</option>
+                        <option value="kiloan">Kiloan</option>
+                        <option value="selimut">Selimut</option>
+                        <option value="bed_cover">Bed Cover</option>
+                        <option value="lain">Lain</option>
+                      </select>
+                    </div>
+                </div>
+              <div class="form-floating mb-2">
+                <label for="nama_paket">Nama</label>
+                <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Nama">
+              </div>
+            <div class="form-floating mb-2">
+              <label for="harga">Harga Paket</label>
+              <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Paket">
+            </div>
+            <button class="w-100 btn btn-lg btn-primary swalDefaultpaketInput" type="submit">Tambah Paket</button>
+        </form>
+      </div>
+    </div>
     </div>
 </div>
 
@@ -121,31 +147,37 @@
               <input type="hidden" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
             </div>
             <div class="form-floating mb-2">
-              <select id="id_outlet" name="id_outlet" class="form-select mb-2">
-                @foreach ($outlet as $item)
+              <div class="section-title mt-0">Id Outlet</div>
+                  <div class="form-group">
+                    <select id="id_outlet" name="id_outlet" class="custom-select">
+                    <option selected>-- Pilih Id Outlet --</option>
+                    @foreach ($outlet as $item)
                   <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
-              </select>
-                <label for="id_outlet">Id Outlet</label>
-              </div>
-              <div class="form-floating mb-2">
-                <select id="jenis" name="jenis" class="form-control select2bs4 select2-hidden-accessible" tabindex="-1">
-                  <option value="kiloan">Kiloan</option>
-                  <option value="selimut">Selimut</option>
-                  <option value="bed_cover">Bed Cover</option>
-                  <option value="lain">Lain</option>
+                  @endforeach
                 </select>
-                <label for="jenis">Jenis</label>
             </div>
+          </div>
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Nama" value="{{ $item->nama_paket }}">
+                <div class="section-title mt-0">Jenis</div>
+                    <div class="form-group">
+                      <select class="custom-select" id="jenis" name="jenis">
+                        <option selected>-- Pilih Jenis Laundry --</option>
+                        <option value="kiloan">Kiloan</option>
+                        <option value="selimut">Selimut</option>
+                        <option value="bed_cover">Bed Cover</option>
+                        <option value="lain">Lain</option>
+                      </select>
+                    </div>
+                </div>
+              <div class="form-floating mb-2">
                 <label for="nama_paket">Nama</label>
+                <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Nama" value="{{ $item->nama_paket }}">
               </div>
             <div class="form-floating mb-2">
-              <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Paket" value="{{ $item->harga }}">
               <label for="harga">Harga Paket</label>
+              <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Paket" value="{{ $item->harga }}">
             </div>
-                <button class="w-100 btn btn-lg btn-dark swalDefaultpaketUpdate" type="submit">Update Paket</button>
+                <button class="w-100 btn btn-lg btn-primary swalDefaultpaketUpdate" type="submit">Update Paket</button>
           </form>
         </div>
       </div>
@@ -202,7 +234,7 @@
     })
   }
 </script>
-    @if (session('paketInput'))
+    @if (session('success'))
   <script>
     $(function(){
       $('#tbl-paket').DataTable();

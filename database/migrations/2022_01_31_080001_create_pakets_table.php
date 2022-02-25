@@ -20,7 +20,7 @@ class CreatePaketsTable extends Migration
             $table->string('nama_paket', 100);
             $table->integer('harga');
             $table->timestamps();
-        });
+        }); 
     }
 
 

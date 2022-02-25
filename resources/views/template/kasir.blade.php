@@ -1,32 +1,9 @@
-<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-  <div class="image">
-    <img src="{{ asset('img') }}/3.jpg" class="img-circle elevation-2" alt="Kasir Image">
-  </div>
-  <div class="info">
-    <a href="#" class="d-block profil">Kasir</a>
-  </div>
-</div>
-<li class="nav-item">
-    <a href="{{ route('transaksi.index') }}" class="nav-link">
-      <i class="bi bi-basket3-fill"></i>
-      <p>
-        Transaksi
-      </p>
-    </a>
-  </li>  
-  <li class="nav-item">
-    <a href="{{ route('registrasi.index') }}" class="nav-link">
-      <i class="bi bi-person-plus-fill"></i>
-      <p>
-        Registrasi
-      </p>
-    </a>
-  </li>  
-  <li class="nav-item">
-    <a href="{{ route('laporan.index') }}" class="nav-link">
-      <i class="bi bi-calendar-month-fill"></i>
-      <p>
-        Laporan
-      </p>
-    </a>
-  </li>
+<li class="menu-header">Starter</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>
+  <ul class="dropdown-menu">
+    <li><a class="nav-link {{ ($title === "Laporan") ? 'active' : '' }}" href="{{ route('laporan.index') }}">Laporan</a></li>
+    <li><a class="nav-link {{ ($title === "Transaksi") ? 'active' : '' }}" href="{{ route('transaksi.index') }}">Transaksi</a></li>
+    <li><a class="nav-link {{ ($title === "User") ? 'active' : '' }}" href="{{ route('user.index') }}">User Management</a></li>
+  </ul>
+</li>

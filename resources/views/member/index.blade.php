@@ -3,13 +3,9 @@
       <!-- Default box -->
 <div class="card">
   <div class="card-header">
-    <button type="button" class="d-flex btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModalInput">
+    <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
         Tambah Data
       </button>
-      <div class="card-tools" style="margin-top: -20px">
-        <!-- Maximize Button -->
-        <button type="button" class="btn btn-tool d-flex ms-auto" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-      </div>
   </div>
   <div class="card-body">
         <table class="table " id="tbl-member">
@@ -36,9 +32,9 @@
                   <td>{{ $item->tlp }}</td>
                   <td>
                     <div class="d-flex">
-                    <button type="button" class="badge btn-success" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    <button type="button" class="badge btn-primary" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
-                    </button> | 
+                    </button>
                     <form action="{{ route('member.destroy', $item->id) }}" method="POST">
                       @method('DELETE')
                       @csrf
@@ -71,25 +67,29 @@
                       <input type="hidden" class="form-control" id="id" name="id">
                     </div>
                     <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Member">
                       <label for="nama">Nama Member</label>
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Member">
                     </div>
                     <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
                       <label for="alamat">Alamat</label>
+                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
                     </div>
-                    <div class="form-floating mb-2">
-                      <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
-                        <option value="L">Laki-laki</option>
-                            <option value="P">Perempuan</option>
-                          </select>
-                          <label for="jenis_kelamin">Jenis Kelamin</label>
+                  <div class="form-group mb-2">
+                    <div class="section-title">Jenis Kelamin</div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="laki-laki" name="jenis_kelamin" class="custom-control-input" value="L">
+                      <label class="custom-control-label" for="laki-laki">Laki-laki</label>
                     </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="perempuan" name="jenis_kelamin" class="custom-control-input">
+                      <label class="custom-control-label" for="perempuan">Perempuan</label>
+                    </div>
+                  </div>
                     <div class="form-floating mb-2">
-                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
                       <label for="tlp">No.Phone</label>
+                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
                       </div>
-                    <button class="w-100 btn btn-lg btn-dark swalDefaultmemberInput" type="submit">Tambah Member</button>
+                    <button class="w-100 btn btn-lg btn-primary swalDefaultmemberInput" type="submit">Tambah Member</button>
                 </form>
               </div>
             </div>
@@ -112,29 +112,38 @@
             @csrf
             @method('PATCH')
             <div class="mb-2">
-              <label for="id">No.</label>
               <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
+              <label for="id">No.</label>
             </div>
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
                 <label for="nama">Nama Member</label>
+                <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
               </div>
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
                 <label for="alamat">Alamat</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
               </div>
-              <div class="form-floating mb-2">
+              <div class="form-group mb-2"></div>
+                <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki" value="L" style="border:2px dotted #00f;background:#ff0000;">
+                <label class="form-check-label" for="laki-laki">Laki-laki</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="P" style="border:2px dotted #00f;background:#ff0000;">
+                <label class="form-check-label" for="perempuan">Perempuan</label>
+              </div>
+            </div>
+              {{-- <div class="form-floating mb-2">
                 <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
                   <option value="L">Laki-laki</option>
                       <option value="P">Perempuan</option>
                     </select>
                     <label for="jenis_kelamin">Jenis Kelamin</label>
-              </div>
+              </div> --}}
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
                 <label for="tlp">No.Phone</label>
+                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
                 </div>
-                <button class="w-100 btn btn-lg btn-dark swalDefaultmemberUpdate" type="submit">Update Member</button>
+                <button class="w-100 btn btn-lg btn-primary swalDefaultmemberUpdate" type="submit">Update Member</button>
           </form>
         </div>
       </div>
@@ -143,7 +152,7 @@
 @endforeach
 
 {{-- Delete --}}
-@foreach ($data as $item)
+{{-- @foreach ($data as $item)
   <div class="modal fade" id="exampleModalDelete{{ $item->id }}" tabindex="-1" aria-labelledby="labelDelete" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -170,7 +179,7 @@
       </div>
     </div>
   </div>
-@endforeach
+@endforeach --}}
 @push('script')
 <script>
   function deleteConfirmation(e) {

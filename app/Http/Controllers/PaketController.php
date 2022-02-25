@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePaketRequest;
 use App\Models\Paket;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaketController extends Controller
 {
@@ -15,8 +17,8 @@ class PaketController extends Controller
      */
     public function index()
     {
-        $paket = Paket::all();
         $outlet = Outlet::all();
+        $paket = Paket::all();
         return view('paket.index', compact('paket', 'outlet'), [ "title" => "Paket" ]);
     }
 
@@ -28,7 +30,7 @@ class PaketController extends Controller
     public function create()
     {
         //
-    }
+    } 
 
     /**
      * Store a newly created resource in storage.
@@ -36,17 +38,16 @@ class PaketController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePaketRequest $request)
     {
         $data = New Paket;
-        // $data->id = $request->id;
         $data->id_outlet = $request->id_outlet;
         $data->jenis = $request->jenis;
         $data->nama_paket = $request->nama_paket;
         $data->harga = $request->harga;
         $data->save();
 
-        return redirect('/paket')->with('paketInput', 'Paket Berhasil ditambahkan');
+        return redirect('/paket')->with('success', 'Input data Paket Berhasil ditambahkan');
     }
 
     /**

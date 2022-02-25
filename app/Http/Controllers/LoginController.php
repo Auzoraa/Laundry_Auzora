@@ -34,16 +34,16 @@ class LoginController extends Controller
             if(Auth::attempt($credentials)){
                 $request->session()->regenerate();
                 if(Auth::user()->role == 'admin'){
-                    return redirect()->route('a.home');
+                    return redirect()->route('home');
                 }elseif(Auth::user()->role == 'kasir'){
-                    return redirect()->route('k.home');
+                    return redirect()->route('home');
                 }elseif(Auth::user()->role == 'owner'){
-                    return redirect()->route('o.home');
+                    return redirect()->route('home');
                 }
-                return redirect()->intended('/home')->with('loginBerhasil', 'Login Berhasil');
+                return redirect()->intended('home')->with('loginBerhasil', 'Login Berhasil');
             }
     
-            return redirect('/login')->with('loginError', 'Login gagal!');
+            return back()->with('loginError', 'Login gagal!');
     
         }
     }
@@ -59,7 +59,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 
     /**

@@ -23,7 +23,7 @@ class CreateTransaksisTable extends Migration
             $table->date('tgl_bayar');
             $table->integer('biaya_tambahan');
             $table->double('diskon');
-            $table->integer('pajax');
+            $table->integer('pajak');
             $table->enum('status', ['baru', 'proses', 'selesai', 'diambil'])->comment(implode(['baru', 'proses', 'selesai', 'diambil']));
             $table->enum('dibayar', ['dibayar', 'belum_dibayar'])->comment(implode(['dibayar', 'belum_dibayar']));
             $table->integer('id_user');

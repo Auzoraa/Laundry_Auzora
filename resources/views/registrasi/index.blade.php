@@ -1,108 +1,254 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Registrasi | Zralaundry.</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/dist/css/adminlte.min.css">
-  {{-- Bootstrap --}}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body class="hold-transition register-page">
-<div class="register-box">
-  <div class="register-logo">
-    <a href="/registrasi"><b>Zra</b>laundry</a>
+@extends('template.header')
+@section('content')
+      <!-- Default box -->
+<div class="card">
+  <div class="card-header">
+    <button type="button" class="d-flex btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModalInput">
+        Tambah Data
+      </button>
+      <div class="card-tools" style="margin-top: -20px">
+        <!-- Maximize Button -->
+        <button type="button" class="btn btn-tool d-flex ms-auto" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+      </div>
   </div>
-
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Hai! Selamat datang</p>
-
-      <form action="/registrasi" method="post">
-        <div class="input-group mb-3">
-          <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Name" value="{{ old('name') }}">
-          @error('name')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-          @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="text" name="id_outlet" class="form-control @error('id_outlet') is-invalid @enderror" id="id_outlet" placeholder="Id Outlet" value="{{ old('id_outlet') }}">
-          @error('id_outlet')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-        @enderror          
-        <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-fire"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <select name="role" id="role" value="{{ old('role') }}" class="form-select">
-            <option value="admin">Admin</option>
-            <option value="kasir">Kasir</option>
-            <option value="owner">Owner</option>
-          </select>
-          @error('role')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-            @enderror
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" value="{{ old('password') }}">
-          @error('password')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-        @enderror          
-        <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Daftar</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-      
-      <small>Sudah punya akun?<a href="/login" class="text-center">Masuk</a></small>
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
+  <div class="card-body">
+        <table class="table " id="tbl-member">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Jenis Kelamin</th>
+                    <th>No.Phone</th>
+                    <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $no = 1;
+                ?>
+              @foreach ($data as $item)
+                <tr>
+                  <td>{{ $no++ }}</td>
+                  <td>{{ $item->nama }}</td>
+                  <td>{{ $item->alamat }}</td>
+                  <td>{{ $item->jenis_kelamin }}</td>
+                  <td>{{ $item->tlp }}</td>
+                  <td>
+                    <div class="d-flex">
+                    <button type="button" class="badge btn-info" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                      <i class="bi bi-pencil-square"></i>
+                    </button> | 
+                    <form action="{{ route('member.destroy', $item->id) }}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <button type="button" class="badge btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
+                    </form>
+                  </div>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+        </table>
+  </div>
 </div>
-<!-- /.register-box -->
+</div>
 
-<!-- jQuery -->
-<script src="{{ asset('assets') }}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('assets') }}/dist/js/adminlte.min.js"></script>
-</body>
-</html>
+{{-- Input --}}
+<div class="modal fade" id="exampleModalInput" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Input Member</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{ route('member.store') }}">
+            @csrf
+                    <div class="mb-2">
+                      <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-floating mb-2">
+                      <label for="nama">Nama Member</label>
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Member">
+                    </div>
+                    <div class="form-floating mb-2">
+                      <label for="alamat">Alamat</label>
+                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki" value="L" style="border:2px dotted #00f;background:#ff0000;">
+                      <label class="form-check-label" for="laki-laki">Laki-laki</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="P" style="border:2px dotted #00f;background:#ff0000;">
+                      <label class="form-check-label" for="perempuan">Perempuan</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                      <label for="tlp">No.Phone</label>
+                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
+                      </div>
+                    <button class="w-100 btn btn-lg btn-dark swalDefaultmemberInput" type="submit">Tambah Member</button>
+                </form>
+              </div>
+            </div>
+    </div>
+</div>
+
+{{-- Update --}}
+@foreach ($data as $item)
+  <div class="modal fade" id="exampleModalUpdate{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title fw-normal" id="exampleModalLabel">Update Member</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{ route('member.update', $item->id) }}" enctype="multipart/form-data">
+            @csrf
+            @method('PATCH')
+            <div class="mb-2">
+              <label for="id">No.</label>
+              <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}" readonly>
+            </div>
+              <div class="form-floating mb-2">
+                <label for="nama">Nama Member</label>
+                <input type="text" class="form-control" id="nama" name="nama" value="{{ $item->nama }}" >
+              </div>
+              <div class="form-floating mb-2">
+                <label for="alamat">Alamat</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="{{ $item->alamat }}">
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label" for="laki-laki">Laki-laki</label>
+                <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki" value="L" style="border:2px dotted #00f;background:#ff0000;">
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="P" style="border:2px dotted #00f;background:#ff0000;">
+                <label class="form-check-label" for="perempuan">Perempuan</label>
+              </div>
+              {{-- <div class="form-floating mb-2">
+                <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
+                  <option value="L">Laki-laki</option>
+                      <option value="P">Perempuan</option>
+                    </select>
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+              </div> --}}
+              <div class="form-floating mb-2">
+                <label for="tlp">No.Phone</label>
+                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
+                </div>
+                <button class="w-100 btn btn-lg btn-dark swalDefaultmemberUpdate" type="submit">Update Member</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+@endforeach
+
+{{-- Delete --}}
+@foreach ($data as $item)
+  <div class="modal fade" id="exampleModalDelete{{ $item->id }}" tabindex="-1" aria-labelledby="labelDelete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title fw-normal" id="labelDelete">Hapus Member</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+              <div class="mb-2">
+                <h5>Apakah anda yakin ingin menghapus? {{ $item->nama }}</h5>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <form action="{{ route('member.destroy', $item->id) }}" method="post">
+                    @csrf
+                    @method("DELETE")
+                    <button type="submit" class="btn btn-danger swalDefaultmemberDelete">Hapus</button>
+                  </form>
+                </div>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endforeach
+@push('script')
+<script>
+  function deleteConfirmation(e) {
+    e.preventDefault()
+    Swal.fire({
+      title: 'Peringatan !!!',
+      icon: 'warning',
+      text: 'Apakah anda yakin ingin menghapus?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Hapus!'
+    }).then((result) => {
+      if(result.value) {
+        $(e.target.closest('form')).submit();
+      }
+    })
+  }
+</script>
+    @if (session('memberInput'))
+  <script>
+    $(function(){
+      $('#tbl-member').DataTable();
+      const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+          });
+          Toast.fire({
+              icon: 'success',
+              title: 'Member Berhasil ditambahkan'
+          });
+    });
+  </script>
+      @endif
+
+      @if (session('memberUpdate'))
+      <script>
+        $(function(){
+          const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+              });
+              Toast.fire({
+                  icon: 'success',
+                  title: 'Member Berhasil diubah'
+              });
+        });
+      </script>
+          @endif
+
+          @if (session('memberDelete'))
+          <script>
+            $(function(){
+              const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000,
+                  });
+                  Toast.fire({
+                      icon: 'success',
+                      title: 'Member Berhasil dihapus'
+                  });
+            });
+          </script>
+              @endif
+@endpush
+@endsection

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BarangInvController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\PaketController;
@@ -23,36 +24,47 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('a.home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('paket', PaketController::class);
     Route::resource('outlet', OutletController::class);
     Route::resource('member', MemberController::class);
     Route::resource('transaksi', TransaksiController::class);
+    Route::resource('barangInv', BarangInvController::class);
     Route::resource('laporan', LaporanController::class);
     Route::post('/logout', [LoginController::class, 'logout']);
-
+    
 });
 
-// Route::group(['auth', 'middleware'=> ['isAdmin', 'auth']],function(){
-//     Route::get('/home', [HomeController::class, 'index'])->name('a.home');
+Route::middleware('guest')->group(function(){
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+});
+
+// Route::group(['prefix'=>'a', 'middleware'=> ['isAdmin', 'auth']],function(){
+//     Route::get('home', [HomeController::class, 'index'])->name('a.home');
 //     Route::resource('paket', PaketController::class);
 //     Route::resource('outlet', OutletController::class);
 //     Route::resource('member', MemberController::class);
 //     Route::resource('transaksi', TransaksiController::class);
 //     Route::resource('laporan', LaporanController::class);
+//     Route::post('logout', [LoginController::class, 'logout']);
+//     Route::get('registrasi', [UserController::class, 'index']);
 // });
 
-// Route::group(['auth', 'middleware'=> ['isKasir', 'auth']],function(){
-//     Route::get('/home', [HomeController::class, 'index'])->name('k.home');
+// Route::group(['prefix'=>'k', 'middleware'=> ['isKasir', 'auth']],function(){
+//     Route::get('home', [HomeController::class, 'index'])->name('k.home');
 //     Route::resource('paket', PaketController::class);
 //     Route::resource('member', MemberController::class);
 //     Route::resource('transaksi', TransaksiController::class);
 //     Route::resource('laporan', LaporanController::class);
+//     Route::post('logout', [LoginController::class, 'logout']);
+//     Route::get('registrasi', [UserController::class, 'index']);
 // });
 
-// Route::group(['auth', 'middleware'=> ['isOwner', 'auth']],function(){
-//     Route::get('/home', [HomeController::class, 'index'])->name('o.home');
+// Route::group(['prefix'=>'o', 'middleware'=> ['isOwner', 'auth']],function(){
+//     Route::get('home', [HomeController::class, 'index'])->name('o.home');
 //     Route::resource('laporan', LaporanController::class);
+//     Route::post('logout', [LoginController::class, 'logout']);
 // });
 
 // Route::middleware('auth')->group(function(){
@@ -67,9 +79,5 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
 //     Route::post('/logout', [LoginController::class, 'logout']);
 // });
 
-Route::middleware('guest')->group(function(){
-    Route::post('/login', [LoginController::class, 'authenticate']);
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-});
 
 
