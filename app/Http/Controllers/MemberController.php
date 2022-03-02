@@ -47,7 +47,7 @@ class MemberController extends Controller
         Excel::import(new MemberImport, public_path('/file_member/'.$nama_file));
         
 		// alihkan halaman kembali
-		return redirect('/member');
+		return redirect('/member')->with('import', 'Import Berhasil');
 	}
 
 

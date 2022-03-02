@@ -55,7 +55,7 @@ class PaketController extends Controller
         Excel::import(new PaketImport, public_path('/file_paket/'.$nama_file));
         
 		// alihkan halaman kembali
-		return redirect('/paket');
+		return redirect('/paket')->with('import', 'Import Berhasil');
 	}
 
     /**

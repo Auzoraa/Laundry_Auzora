@@ -189,7 +189,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Import</button>
+							<button type="submit" class="btn btn-primary swalDefaultimport">Import</button>
 						</div>
 					</div>
 				</form>
@@ -262,6 +262,23 @@
             });
         </script>
     @endif
+
+    @if (session('import'))
+      <script>
+        $(function(){
+          const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+              });
+              Toast.fire({
+                  icon: 'success',
+                  title: 'Import Berhasil'
+              });
+        });
+      </script>
+          @endif
 
     @if (session('memberUpdate'))
         <script>

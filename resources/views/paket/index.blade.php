@@ -30,6 +30,12 @@
     <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
       Tambah Data
     </button>
+    <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success"><i class="bi bi-excel"
+                    style="color: rgb(1, 138, 92)"></i> Export Xls</button>
+      <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+              style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
+      <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
+        IMPORT EXCEL </button>
 </div>
 <div class="card-body">
         <table class="table " id="tbl-paket">
@@ -183,6 +189,33 @@
   </div>
 @endforeach
 
+<!-- Import Excel -->
+<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form method="post" action="/paket/import_excel" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+        </div>
+        <div class="modal-body">
+
+          {{ csrf_field() }}
+
+          <label>Pilih file excel</label>
+          <div class="form-group">
+            <input type="file" name="file" required="required">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary swalDefaultimport">Import</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 {{-- Delete --}}
 {{-- @foreach ($data as $item)
   <div class="modal fade" id="exampleModalDelete{{ $item->id }}" tabindex="-1" aria-labelledby="labelDelete" aria-hidden="true">
@@ -266,6 +299,22 @@
         });
       </script>
           @endif
+          @if (session('import'))
+      <script>
+        $(function(){
+          const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+              });
+              Toast.fire({
+                  icon: 'success',
+                  title: 'Import Berhasil'
+              });
+        });
+      </script>
+          @endif
 
           @if (session('paketDelete'))
           <script>
@@ -283,5 +332,10 @@
             });
           </script>
               @endif
+  <script>
+  $('#btn-export-xls').on('click', function(e){
+    window.location = "{{ url('paket/export/xls') }}";
+  })
+  </script>
 @endpush
 @endsection

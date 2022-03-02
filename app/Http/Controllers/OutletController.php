@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Outlet;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Exports\OutletExport;
-use App\Imports\OutletrImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\OutletImport;
 
 class OutletController extends Controller
 {
@@ -51,7 +52,7 @@ class OutletController extends Controller
         Excel::import(new OutletImport, public_path('/file_outlet/'.$nama_file));
         
 		// alihkan halaman kembali
-		return redirect('/outlet');
+		return redirect('/outlet')->with('import', 'Import Berhasil');
 	}
 
     /**

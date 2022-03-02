@@ -51,7 +51,7 @@ class BarangInvController extends Controller
         Excel::import(new BarangInvImport, public_path('/file_barangInv/'.$nama_file));
         
 		// alihkan halaman kembali
-		return redirect('/barangInv');
+		return redirect('/barangInv')->with('import', 'Import Berhasil');
 	}
 
     /**

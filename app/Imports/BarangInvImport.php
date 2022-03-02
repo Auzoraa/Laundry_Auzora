@@ -4,9 +4,11 @@ namespace App\Imports;
 
 use App\Models\BarangInv;
 use Maatwebsite\Excel\Concerns\ToModel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class BarangInvImport implements ToModel
 {
+
     /**
     * @param array $row
     *
@@ -19,7 +21,7 @@ class BarangInvImport implements ToModel
             'merk_barang'    => $row[2],
             'qty'    => $row[3],
             'kondisi'    => $row[4],
-            'tanggal_pengadaan'    => $row[5],
-        ]);
+            'tanggal_pengadaan'  => Date::excelToDateTimeObject($row[5])
+            ]);
     }
 }
