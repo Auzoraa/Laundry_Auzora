@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangInv;
 use Illuminate\Http\Request;
+use App\Exports\BarangInvExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangInvController extends Controller
 {
@@ -23,9 +25,9 @@ class BarangInvController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function export() 
     {
-        //
+        return Excel::download(new BarangInvExport, 'barang_inv.xlsx');
     }
 
     /**

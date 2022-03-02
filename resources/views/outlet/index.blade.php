@@ -90,15 +90,15 @@
                     </div>
                     <div class="form-floating mb-2">
                       <label for="nama">Nama Outlet</label>
-                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Outlet">
+                      <input type="text" class="form-control" id="nama" name="nama">
                     </div>
                     <div class="form-floating mb-2">
                       <label for="alamat">Alamat</label>
-                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
+                      <input type="text" class="form-control" id="alamat" name="alamat">
                     </div>
                     <div class="form-floating mb-2">
                       <label for="tlp">No.Phone</label>
-                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone">
+                      <input type="text" class="form-control" id="tlp" name="tlp">
                       </div>
                     <button class="w-100 btn btn-lg btn-primary swalDefaultoutletInput" type="submit">Tambah Outlet</button>
                 </form>

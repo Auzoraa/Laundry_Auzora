@@ -22,7 +22,7 @@ class TransaksiController extends Controller
         $data['member'] = Member::get();
         $data['paket'] = Paket::get();
         // $data['paket'] = Paket::where('id_outlet', auth()->user()->id_outlet)->get();
-        return view('transaksi.index', ["title" => "Transaksi"])->with($data);
+        return view('transaksi.index', $data, [ "title" => "Transaksi" ]);
     }
 
     private function generateKodeInvoice(){

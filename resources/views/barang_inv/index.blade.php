@@ -70,21 +70,21 @@
                     </div>
                     <div class="form-floating mb-2">
                         <label for="nama_barang">Nama Barang</label>
-                      <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Nama Barang">
+                      <input type="text" class="form-control" id="nama_barang" name="nama_barang">
                     </div>
                     <div class="form-floating mb-2">
                         <label for="merk_barang">Merk Barang</label>
-                      <input type="text" class="form-control" id="merk_barang" name="merk_barang" placeholder="Merk Barang">
+                      <input type="text" class="form-control" id="merk_barang" name="merk_barang">
                     </div>
                     <div class="form-floating mb-2">
                         <label for="qty">Qty</label>
-                        <input type="number" class="form-control" id="qty" name="qty" placeholder="Qty">
+                        <input type="number" class="form-control" id="qty" name="qty">
                       </div>
                     <div class="form-group mb-2">
-                        <div class="section-title mt-0">Id Outlet</div>
+                        <div class="section-title mt-0">Kondisi</div>
                             <div class="form-group">
                               <select id="kondisi" name="kondisi" class="custom-select">
-                              <option selected>-- Kondisi Barang --</option>
+                              <option selected>-- Pilih Kondisi Barang --</option>
                               <option value="layak_pakai">Layak Pakai</option>
                               <option value="rusak_ringan">Rusak ringan</option>
                               <option value="rusak_baru">Rusak Baru</option>

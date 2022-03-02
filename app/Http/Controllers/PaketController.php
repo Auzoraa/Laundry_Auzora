@@ -7,6 +7,8 @@ use App\Models\Paket;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\PaketExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PaketController extends Controller
 {
@@ -27,10 +29,10 @@ class PaketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function export() 
     {
-        //
-    } 
+        return Excel::download(new PaketExport, 'paket.xlsx');
+    }
 
     /**
      * Store a newly created resource in storage.

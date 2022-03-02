@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Exports\MemberExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
@@ -16,6 +19,11 @@ class MemberController extends Controller
     {
         $data = Member::all();
         return view('member.index', compact('data'), [ "title" => "Member" ]);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new MemberExport, 'member.xlsx');
     }
 
 

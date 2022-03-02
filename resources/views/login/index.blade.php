@@ -39,7 +39,7 @@
                   @csrf
                   <div class="form-group">
                     <label for="name">Nama</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama" value="{{ old('name') }}">
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" autofocus placeholder="Auzora">
                     @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -48,15 +48,8 @@
                   </div>
 
                   <div class="form-group">
-                    <div class="d-block">
-                    	<label for="password" class="control-label">Password</label>
-                      <div class="float-right">
-                        <a href="#" class="text-small">
-                          Forgot Password?
-                        </a>
-                      </div>
-                    </div>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" value="{{ old('password') }}">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="******" value="{{ old('password') }}">
                     @error('password')
                       <div class="invalid-feedback">
                         {{ $message }}

@@ -32,6 +32,10 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::resource('barangInv', BarangInvController::class);
     Route::resource('laporan', LaporanController::class);
     Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('member/export/xls', [MemberController::class, 'export']);
+    Route::get('paket/export/xls', [PaketController::class, 'export']);
+    Route::get('outlet/export/xls', [OutletController::class, 'export']);
+    Route::get('barangInv/export/xls', [BarangInvController::class, 'export']);
     
 });
 

@@ -115,11 +115,11 @@
                 </div>
               <div class="form-floating mb-2">
                 <label for="nama_paket">Nama</label>
-                <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Nama">
+                <input type="text" class="form-control" id="nama_paket" name="nama_paket">
               </div>
             <div class="form-floating mb-2">
               <label for="harga">Harga Paket</label>
-              <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga Paket">
+              <input type="text" class="form-control" id="harga" name="harga">
             </div>
             <button class="w-100 btn btn-lg btn-primary swalDefaultpaketInput" type="submit">Tambah Paket</button>
         </form>
@@ -151,9 +151,7 @@
                   <div class="form-group">
                     <select id="id_outlet" name="id_outlet" class="custom-select">
                     <option selected>-- Pilih Id Outlet --</option>
-                    @foreach ($outlet as $item)
-                  <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                  @endforeach
+                    <option value="{{ $item->id_outlet }}">{{ $item->id_outlet }}</option>
                 </select>
             </div>
           </div>
@@ -237,7 +235,7 @@
     @if (session('success'))
   <script>
     $(function(){
-      $('#tbl-paket').DataTable();
+      
       const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
