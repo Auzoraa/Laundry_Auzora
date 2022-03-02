@@ -6,6 +6,12 @@
     <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
         Tambah Data
       </button>
+      <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success"><i class="bi bi-excel"
+                    style="color: rgb(1, 138, 92)"></i> Export Xls</button>
+      <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+              style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
+      <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
+        IMPORT EXCEL </button>
   </div>
   <div class="card-body">
         <table class="table " id="tbl-barangInv">

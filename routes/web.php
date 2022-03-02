@@ -36,6 +36,11 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::get('paket/export/xls', [PaketController::class, 'export']);
     Route::get('outlet/export/xls', [OutletController::class, 'export']);
     Route::get('barangInv/export/xls', [BarangInvController::class, 'export']);
+    Route::post('/member/import_excel', [MemberController::class, 'import_excel']);
+    Route::post('/barangInv/import_excel', [BarangInvController::class, 'import_excel']);
+    Route::post('/paket/import_excel', [PaketController::class, 'import_excel']);
+    Route::post('/outlet/import_excel', [OutletController::class, 'import_excel']);
+
     
 });
 

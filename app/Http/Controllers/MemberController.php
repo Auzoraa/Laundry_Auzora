@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exports\MemberExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MemberImport;
 
 class MemberController extends Controller
 {
@@ -25,6 +26,29 @@ class MemberController extends Controller
     {
         return Excel::download(new MemberExport, 'member.xlsx');
     }
+
+    public function import_excel(Request $request) 
+	{
+		// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		// menangkap file excel
+		$file = $request->file('file');
+ 
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		// upload ke folder file_member di dalam folder public
+		$file->move('file_member',$nama_file);
+ 
+		// import data
+        Excel::import(new MemberImport, public_path('/file_member/'.$nama_file));
+        
+		// alihkan halaman kembali
+		return redirect('/member');
+	}
 
 
     /**

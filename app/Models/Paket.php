@@ -11,5 +11,6 @@ class Paket extends Model
     protected $table = 'paket';
     protected $primaryKey = 'id';
     public $incrementing = false;
+    protected $guarded = ['id', 'crated_at', 'updated_at'];
     protected $keyType = 'string';
 }

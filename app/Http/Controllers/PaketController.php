@@ -8,6 +8,7 @@ use App\Models\Outlet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Exports\PaketExport;
+use App\Imports\PaketImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PaketController extends Controller
@@ -33,6 +34,29 @@ class PaketController extends Controller
     {
         return Excel::download(new PaketExport, 'paket.xlsx');
     }
+
+    public function import_excel(Request $request) 
+	{
+		// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		// menangkap file excel
+		$file = $request->file('file');
+ 
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		// upload ke folder file_paket di dalam folder public
+		$file->move('file_paket',$nama_file);
+ 
+		// import data
+        Excel::import(new PaketImport, public_path('/file_paket/'.$nama_file));
+        
+		// alihkan halaman kembali
+		return redirect('/paket');
+	}
 
     /**
      * Store a newly created resource in storage.

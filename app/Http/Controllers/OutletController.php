@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
 use App\Exports\OutletExport;
+use App\Imports\OutletrImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class OutletController extends Controller
@@ -29,6 +30,29 @@ class OutletController extends Controller
     {
         return Excel::download(new OutletExport, 'outlet.xlsx');
     }
+
+    public function import_excel(Request $request) 
+	{
+		// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		// menangkap file excel
+		$file = $request->file('file');
+ 
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		// upload ke folder file_outlet di dalam folder public
+		$file->move('file_outlet',$nama_file);
+ 
+		// import data
+        Excel::import(new OutletImport, public_path('/file_outlet/'.$nama_file));
+        
+		// alihkan halaman kembali
+		return redirect('/outlet');
+	}
 
     /**
      * Store a newly created resource in storage.

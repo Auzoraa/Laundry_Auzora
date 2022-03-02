@@ -11,5 +11,6 @@ class Outlet extends Model
     protected $table = 'outlet';
     protected $primaryKey = 'id';
     public $incrementing = false;
+    protected $guarded = ['id', 'crated_at', 'updated_at'];
     protected $keyType = 'string';
 }

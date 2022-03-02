@@ -15,8 +15,8 @@ class CreateBarangInvsTable extends Migration
     {
         Schema::create('barang_inv', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang', 20);
-            $table->string('merk_barang', 20);
+            $table->string('nama_barang', 100);
+            $table->string('merk_barang', 100);
             $table->integer('qty');
             $table->enum('kondisi', ['layak_pakai', 'rusak_ringan', 'rusak_baru'])->comment(implode(['layak_pakai', 'rusak_ringan', 'rusak_baru']));
             $table->date('tanggal_pengadaan');
