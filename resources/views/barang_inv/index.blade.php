@@ -2,17 +2,17 @@
 @section('content')
       <!-- Default box -->
 <div class="card">
-  <div class="card-header">
-    <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
+  <div class="card-header d-flex">
+    <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalInput">
         Tambah Data
-      </button>
-      <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success swalDefaultexport"><i class="bi bi-excel"
-                    style="color: rgb(1, 138, 92)"></i> Export Xls</button>
-      <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
-              style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
-      <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
-        IMPORT EXCEL </button>
-  </div>
+    </button>
+    <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success mr-1"><i class="bi bi-excel"
+            style="color: rgb(1, 138, 92)"></i> Export Xls</button>
+    <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+            style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
+    <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
+        Import Xls</button>
+</div>
   <div class="card-body">
         <table class="table " id="tbl-barangInv">
             <thead>
@@ -40,13 +40,13 @@
                   <td>{{ $item->tanggal_pengadaan }}</td>
                   <td>
                     <div class="d-flex">
-                    <button type="button" class="badge btn-primary" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
                     </button>
                     <form action="{{ route('barangInv.destroy', $item->id) }}" method="POST">
                       @method('DELETE')
                       @csrf
-                      <button type="button" class="badge btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
                     </form>
                   </div>
                   </td>
@@ -87,7 +87,7 @@
                         <input type="number" class="form-control" id="qty" name="qty">
                       </div>
                     <div class="form-group mb-2">
-                        <div class="section-title mt-0">Kondisi</div>
+                        <div class="section-title mt-0"><b>Kondisi</b></div>
                             <div class="form-group">
                               <select id="kondisi" name="kondisi" class="custom-select">
                               <option selected>-- Pilih Kondisi Barang --</option>
@@ -101,7 +101,7 @@
                         <label for="tanggal_pengadaan">Tanggal Pengadaan</label>
                       <input type="date" class="form-control" id="tanggal_pengadaan" name="tanggal_pengadaan" placeholder="Tanggal Pengadaan">
                       </div>
-                    <button class="w-100 btn btn-lg btn-primary swalDefaultbarangInvInput" type="submit">Tambah Barang</button>
+                    <button class="w-100 btn btn-lg btn-info swalDefaultbarangInvInput" type="submit">Tambah Barang</button>
                 </form>
               </div>
             </div>
@@ -140,7 +140,7 @@
                 <input type="text" class="form-control" id="qty" name="qty" value="{{ $item->qty }}">
               </div>
               <div class="form-group mb-2">
-                <div class="section-title mt-0">Id Outlet</div>
+                <div class="section-title mt-0"><b>Kondisi</b></div>
                     <div class="form-group">
                       <select id="kondisi" name="kondisi" class="custom-select">
                       <option selected>-- Kondisi Barang --</option>
@@ -161,7 +161,7 @@
                 <label for="tanggal_pengadaan">Tanggal Pengadaan</label>
                 <input type="text" class="form-control" id="tanggal_pengadaan" name="tanggal_pengadaan" value="{{ $item->tanggal_pengadaan }}">
                 </div>
-                <button class="w-100 btn btn-lg btn-primary swalDefaultbarangInvUpdate" type="submit">Update Barang</button>
+                <button class="w-100 btn btn-lg btn-info swalDefaultbarangInvUpdate" type="submit">Update Barang</button>
           </form>
         </div>
       </div>
@@ -189,7 +189,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary swalDefaultimport">Import</button>
+							<button type="submit" class="btn btn-info swalDefaultimport">Import</button>
 						</div>
 					</div>
 				</form>

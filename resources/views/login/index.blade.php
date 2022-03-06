@@ -1,99 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Zralaundry. | Login</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Zralaundry. | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <!-- sweetalert -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/toastr/toastr.min.css">
-
-  <!-- CSS Libraries -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/node_modules/bootstrap-social/bootstrap-social.css">
-
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
-  <link rel="stylesheet" href="{{ asset('assets') }}/css/components.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{ asset('assets') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('assets') }}/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><b>Zra</b>laundry</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Selamat datang di Zralaundry.</p>
 
-<body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="{{ asset('assets') }}/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+      <form action="/login" method="post">
+        @csrf
+        <div class="input-group mb-3">
+          <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" autofocus placeholder="Auzora">
+          @error('name')
+            <div class="invalid-feedback">
+              {{ $message }}
             </div>
-
-            <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
-
-              <div class="card-body">
-                <form method="POST" action="/login" class="needs-validation" novalidate="">
-                  @csrf
-                  <div class="form-group">
-                    <label for="name">Nama</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" autofocus placeholder="Auzora">
-                    @error('name')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                    @enderror
-                  </div>
-
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="******" value="{{ old('password') }}">
-                    @error('password')
-                      <div class="invalid-feedback">
-                        {{ $message }}
-                      </div>
-                  @enderror
-                  </div>
-
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                      <label class="custom-control-label" for="remember-me">Remember Me</label>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
-                    </button>
-                  </div>
-                </form>
-
-              </div>
+          @enderror
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="******" value="{{ old('password') }}">
+          @error('password')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+        @enderror
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-info">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Ingat saya
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-info btn-block swalDefaultloginBerhasil swalDefaultloginError">Masuk</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.login-card-body -->
   </div>
+</div>
+<!-- /.login-box -->
 
-  <!-- General JS Scripts -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="{{ asset('assets') }}/js/stisla.js"></script>
-
-  <!-- JS Libraies -->
-
-  <!-- Template JS File -->
-  <script src="{{ asset('assets') }}/js/scripts.js"></script>
-  <script src="{{ asset('assets') }}/js/custom.js"></script>
-
-@include('template.footer')
+<!-- jQuery -->
+<script src="{{ asset('assets') }}/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('assets') }}/dist/js/adminlte.min.js"></script>
 
 @push('login') 
   @if (session('loginBerhasil'))

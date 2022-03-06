@@ -25,7 +25,6 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-        {
             $credentials = $request->validate([
                 'name' => 'required',
                 'password' => 'required'
@@ -43,9 +42,8 @@ class LoginController extends Controller
                 return redirect()->intended('home')->with('loginBerhasil', 'Login Berhasil');
             }
     
-            return back()->with('loginError', 'Login gagal!');
+            return back()->with('loginError', 'Login gagal');
     
-        }
     }
 
     /**

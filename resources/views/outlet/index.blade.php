@@ -2,16 +2,16 @@
 @section('content')
       <!-- Default box -->
 <div class="card">
-  <div class="card-header">
-    <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
-      Tambah Data
+  <div class="card-header d-flex">
+    <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalInput">
+        Tambah Data
     </button>
-    <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success"><i class="bi bi-excel"
-                    style="color: rgb(1, 138, 92)"></i> Export Xls</button>
-      <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
-              style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
-      <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
-        IMPORT EXCEL </button>
+    <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success mr-1"><i class="bi bi-excel"
+            style="color: rgb(1, 138, 92)"></i> Export Xls</button>
+    <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+            style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
+    <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
+        Import Xls</button>
 </div>
 <div class="card-body">
     <div class="table-stats order-table ov-h">
@@ -59,13 +59,13 @@
                       <i class="bi bi-trash-fill"></i>
                     </button> --}}
                     <div class="d-flex">
-                    <button type="button" class="badge btn-primary" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
+                    <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>
                     </button>
                     <form action="{{ route('outlet.destroy', $item->id) }}" method="POST">
                       @method('DELETE')
                       @csrf
-                      <button type="button" class="badge btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
+                      <button type="button" class="btn btn-sm btn-danger" onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
                     </form>
                     </div>
                   </td>
@@ -106,7 +106,7 @@
                       <label for="tlp">No.Phone</label>
                       <input type="text" class="form-control" id="tlp" name="tlp">
                       </div>
-                    <button class="w-100 btn btn-lg btn-primary swalDefaultoutletInput" type="submit">Tambah Outlet</button>
+                    <button class="w-100 btn btn-lg btn-info swalDefaultoutletInput" type="submit">Tambah Outlet</button>
                 </form>
               </div>
             </div>
@@ -144,7 +144,7 @@
               <label for="tlp">No.Phone</label>
               <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone" value="{{ $item->tlp }}">
               </div>
-              <button class="w-100 btn btn-lg btn-primary swalDefaultoutletUpdate" type="submit">Update Outlet</button>
+              <button class="w-100 btn btn-lg btn-info swalDefaultoutletUpdate" type="submit">Update Outlet</button>
         </form>
             </div>
           </div>
@@ -172,7 +172,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary swalDefaultimport">Import</button>
+							<button type="submit" class="btn btn-info swalDefaultimport">Import</button>
 						</div>
 					</div>
 				</form>
@@ -194,7 +194,7 @@
                 <h5>Apakah anda yakin ingin menghapus? {{ $item->nama }}</h5>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-info" data-dismiss="modal">Close</button>
                   <form action="{{ route('outlet.destroy', $item->id) }}" method="post">
                     @csrf
                     @method("DELETE")

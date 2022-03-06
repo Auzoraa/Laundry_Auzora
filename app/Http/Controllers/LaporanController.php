@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pembelian;
-use App\Models\Pengeluaran;
-use App\Models\Penjualan;
+use App\Models\Member;
+use App\Models\Paket;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -12,15 +11,10 @@ class LaporanController extends Controller
 {
     public function index(Request $request)
     {
-        $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
-        $tanggalAkhir = date('Y-m-d');
+        $data['member'] = Member::get();
+        $data['paket'] = Paket::get();
 
-        if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
-            $tanggalAwal = $request->tanggal_awal;
-            $tanggalAkhir = $request->tanggal_akhir;
-        }
-
-        return view('laporan.index', compact('tanggalAwal', 'tanggalAkhir'), ["title" => "Laporan"]);
+        return view('laporan.index', $data, ["title" => "Laporan"]);
     }
 
     // public function getData($awal, $akhir)

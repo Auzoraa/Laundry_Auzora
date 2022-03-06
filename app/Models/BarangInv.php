@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BarangInv extends Model
 {
     use HasFactory;
-    protected $table = 'barang_inv';
+    protected $table = 'baranginv';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';

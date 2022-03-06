@@ -1,18 +1,18 @@
 @extends('template.header')
 @section('content')
     <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <button type="button" class="d-flex btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalInput">
-                Tambah Data
-            </button>
-            <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success"><i class="bi bi-excel"
-                    style="color: rgb(1, 138, 92)"></i> Export Xls</button>
-            <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
-                    style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
-            <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
-			        IMPORT EXCEL </button>
-        </div>
+        <div class="card">
+            <div class="card-header d-flex">
+                <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalInput">
+                    Tambah Data
+                </button>
+                <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success mr-1"><i class="bi bi-excel"
+                        style="color: rgb(1, 138, 92)"></i> Export Xls</button>
+                <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+                        style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
+                <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
+                    Import Xls</button>
+            </div>
         <div class="card-body">
             <table class="table " id="tbl-member">
                 <thead>
@@ -38,14 +38,14 @@
                             <td>{{ $item->tlp }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <button type="button" class="badge btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal"
                                         data-target="#exampleModalUpdate{{ $item->id }}">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
                                     <form action="{{ route('member.destroy', $item->id) }}" method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="button" class="badge btn-danger"
+                                        <button type="button" class="btn btn-sm btn-danger"
                                             onclick="deleteConfirmation(event)"><i class="bi bi-trash-fill"></i></button>
                                     </form>
                                 </div>
@@ -82,23 +82,21 @@
                             <label for="alamat">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat">
                         </div>
-                        <div class="form-group mb-2">
-                            <div class="section-title">Jenis Kelamin</div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="laki-laki" name="jenis_kelamin" class="custom-control-input"
-                                    value="L">
-                                <label class="custom-control-label" for="laki-laki">Laki-laki</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="perempuan" name="jenis_kelamin" class="custom-control-input">
-                                <label class="custom-control-label" for="perempuan">Perempuan</label>
-                            </div>
-                        </div>
+                        <div class="mb-2">
+                            <div class="section-title mt-0"><b>Jenis Kelamin</b></div>
+                                <div class="form-group">
+                                  <select id="jenis_kelamin" name="jenis_kelamin" class="custom-select">
+                                  <option selected>-- Mohon pilih jenis kelamin --</option>
+                                  <option value="L">Laki-laki</option>
+                                  <option value="P">Perempuan</option>
+                                  </select>
+                                </div>
+                        </div>  
                         <div class="form-floating mb-2">
                             <label for="tlp">No.Phone</label>
                             <input type="text" class="form-control" id="tlp" name="tlp">
                         </div>
-                        <button class="w-100 btn btn-lg btn-primary swalDefaultmemberInput" type="submit">Tambah
+                        <button class="w-100 btn btn-lg btn-info swalDefaultmemberInput" type="submit">Tambah
                             Member</button>
                     </form>
                 </div>
@@ -106,7 +104,6 @@
         </div>
     </div>
 
-    {{-- Update --}}
     @foreach ($data as $item)
         <div class="modal fade" id="exampleModalUpdate{{ $item->id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -124,77 +121,70 @@
                             @csrf
                             @method('PATCH')
                             <div class="mb-2">
+                                <label for="id">No.</label>
                                 <input type="text" class="form-control" id="id" name="id" value="{{ $item->id }}"
                                     readonly>
-                                <label for="id">No.</label>
                             </div>
-                            <div class="form-floating mb-2">
+                            <div class="mb-2">
                                 <label for="nama">Nama Member</label>
                                 <input type="text" class="form-control" id="nama" name="nama"
                                     value="{{ $item->nama }}">
                             </div>
-                            <div class="form-floating mb-2">
+                            <div class="mb-2">
                                 <label for="alamat">Alamat</label>
                                 <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat"
                                     value="{{ $item->alamat }}">
                             </div>
-                            <div class="form-group mb-2"></div>
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki" value="L"
-                                style="border:2px dotted #00f;background:#ff0000;">
-                            <label class="form-check-label" for="laki-laki">Laki-laki</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="P"
-                            style="border:2px dotted #00f;background:#ff0000;">
-                        <label class="form-check-label" for="perempuan">Perempuan</label>
+                            <div class="mb-2">
+                                <div class="section-title mt-0"><b>Jenis Kelamin</b></div>
+                                    <div class="form-group">
+                                      <select id="jenis_kelamin" name="jenis_kelamin" class="custom-select">
+                                      <option selected>-- Mohon pilih jenis kelamin --</option>
+                                      <option value="L">Laki-laki</option>
+                                      <option value="P">Perempuan</option>
+                                      </select>
+                                    </div>
+                            </div>
+                            <div class="mb-2"><label for="tlp">No.Phone</label>
+                                <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone"
+                                    value="{{ $item->tlp }}">
+                            </div>
+                            <button class="w-100 btn btn-lg btn-info swalDefaultpaketUpdate" type="submit">Update
+                                Member</button>
+                        </form>
                     </div>
                 </div>
-                {{-- <div class="form-floating mb-2">
-                <select id="jenis_kelamin" name="jenis_kelamin" class="form-select">
-                  <option value="L">Laki-laki</option>
-                      <option value="P">Perempuan</option>
-                    </select>
-                    <label for="jenis_kelamin">Jenis Kelamin</label>
-              </div> --}}
-                <div class="form-floating mb-2">
-                    <label for="tlp">No.Phone</label>
-                    <input type="text" class="form-control" id="tlp" name="tlp" placeholder="No.Phone"
-                        value="{{ $item->tlp }}">
-                </div>
-                <button class="w-100 btn btn-lg btn-primary swalDefaultmemberUpdate" type="submit">Update Member</button>
-                </form>
             </div>
-        </div>
-        </div>
         </div>
     @endforeach
 
     <!-- Import Excel -->
-		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<form method="post" action="/member/import_excel" enctype="multipart/form-data">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
-						</div>
-						<div class="modal-body">
- 
-							{{ csrf_field() }}
- 
-							<label>Pilih file excel</label>
-							<div class="form-group">
-								<input type="file" name="file" required="required">
-							</div>
- 
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary swalDefaultimport">Import</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
+    <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="post" action="/member/import_excel" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                    </div>
+                    <div class="modal-body">
+
+                        {{ csrf_field() }}
+
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info swalDefaultimport">Import</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     {{-- Delete --}}
     {{-- @foreach ($data as $item)
@@ -264,21 +254,21 @@
     @endif
 
     @if (session('import'))
-      <script>
-        $(function(){
-          const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 3000,
-              });
-              Toast.fire({
-                  icon: 'success',
-                  title: 'Import Berhasil'
-              });
-        });
-      </script>
-          @endif
+        <script>
+            $(function() {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                });
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Import Berhasil'
+                });
+            });
+        </script>
+    @endif
 
     @if (session('memberUpdate'))
         <script>
@@ -313,8 +303,8 @@
         </script>
     @endif
     <script>
-      $('#btn-export-xls').on('click', function(e){
-        window.location = "{{ url('member/export/xls') }}";
-      })
+        $('#btn-export-xls').on('click', function(e) {
+            window.location = "{{ url('member/export/xls') }}";
+        })
     </script>
 @endpush

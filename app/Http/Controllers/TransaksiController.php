@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTransaksi;
-use App\Http\Requests\UpdateTransaksi;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use App\Models\Member;
@@ -37,18 +35,18 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function notaKecil()
-    {
-        $transaksi = Transaksi::find(session('kode_invoice)'));
-        if (! $transaksi) {
-            abort(404);
-        }
-        $detail = Transaksi::with('id_outlet')
-            ->where('kode_invoice)', session('kode_invoice)'))
-            ->get();
+    // public function notaKecil()
+    // {
+    //     $transaksi = Transaksi::find(session('kode_invoice)'));
+    //     if (! $transaksi) {
+    //         abort(404);
+    //     }
+    //     $detail = Transaksi::with('id_outlet')
+    //         ->where('kode_invoice)', session('kode_invoice)'))
+    //         ->get();
         
-        return view('transaksi.nota_kecil', compact('transaksi', 'detail'));
-    }
+    //     return view('transaksi.nota_kecil', compact('transaksi', 'detail'));
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -56,7 +54,7 @@ class TransaksiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTransaksi $request)
+    public function store(Request $request)
     {
         $request['id_outlet'] = auth()->user()->id_outlet;
         $request['kode_invoice'] = $this->generateKodeInvoice();
