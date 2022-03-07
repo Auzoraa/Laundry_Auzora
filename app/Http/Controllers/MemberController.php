@@ -48,7 +48,15 @@ class MemberController extends Controller
         
 		// alihkan halaman kembali
 		return redirect('/member')->with('import', 'Import Berhasil');
-	}
+    }
+    
+    public function cetak_pdf()
+    {
+    	$member = Member::all();
+ 
+    	$pdf = PDF::loadview('member_pdf',['member'=>$member]);
+    	return $pdf->download('laporan-member-pdf', [ "title" => "Member" ]);
+    }
 
 
     /**

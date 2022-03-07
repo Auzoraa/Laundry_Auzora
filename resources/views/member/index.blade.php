@@ -8,9 +8,9 @@
                 </button>
                 <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success mr-1"><i class="bi bi-excel"
                         style="color: rgb(1, 138, 92)"></i> Export Xls</button>
-                <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+                <button type="button" id="btn-export-pdf" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
                         style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
-                <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
+                <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel"><i class="fas fa-book"></i>
                     Import Xls</button>
             </div>
         <div class="card-body">
@@ -76,11 +76,11 @@
                         </div>
                         <div class="form-floating mb-2">
                             <label for="nama">Nama Member</label>
-                            <input type="text" class="form-control" id="nama" name="nama">
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Auzora">
                         </div>
                         <div class="form-floating mb-2">
                             <label for="alamat">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat">
+                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Wr. Duku">
                         </div>
                         <div class="mb-2">
                             <div class="section-title mt-0"><b>Jenis Kelamin</b></div>
@@ -94,7 +94,7 @@
                         </div>  
                         <div class="form-floating mb-2">
                             <label for="tlp">No.Phone</label>
-                            <input type="text" class="form-control" id="tlp" name="tlp">
+                            <input type="text" class="form-control" id="tlp" name="tlp" placeholder="0895665352">
                         </div>
                         <button class="w-100 btn btn-lg btn-info swalDefaultmemberInput" type="submit">Tambah
                             Member</button>
@@ -305,6 +305,11 @@
     <script>
         $('#btn-export-xls').on('click', function(e) {
             window.location = "{{ url('member/export/xls') }}";
+        })
+    </script>
+    <script>
+        $('#btn-export-pdf').on('click', function(e) {
+            window.location = "{{ url('member/cetak_pdf') }}";
         })
     </script>
 @endpush

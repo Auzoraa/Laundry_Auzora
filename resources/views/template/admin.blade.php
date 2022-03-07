@@ -12,7 +12,7 @@
 <li class="nav-header">Data</li>          
 <li class="nav-item">
     <a href="{{ route('member.index') }}" class="nav-link {{ $title === 'Member' ? 'active' : '' }}">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <i class="nav-icon fas fa-user-friends"></i>
         <p>
             Member
         </p>
@@ -20,7 +20,7 @@
 </li>
 <li class="nav-item">
     <a href="{{ route('paket.index') }}" class="nav-link {{ $title === 'Paket' ? 'active' : '' }}">
-        <i class="nav-icon fas fa-th"></i>
+        <i class="nav-icon fas fa-box-open"></i>
         <p>
             Paket
         </p>
@@ -28,7 +28,7 @@
 </li>
 <li class="nav-item">
     <a href="{{ route('outlet.index') }}" class="nav-link {{ $title === 'Outlet' ? 'active' : '' }}">
-        <i class="nav-icon fas fa-copy"></i>
+        <i class="nav-icon fas fa-building"></i>
         <p>
             Outlet
         </p>
@@ -42,10 +42,19 @@
         </p>
     </a>
 </li>
+<li class="nav-header">Pemrograman Dasar</li>
+<li class="nav-item">
+    <a href="/dasar" class="nav-link {{ $title === 'Dasar' ? 'active' : '' }}">
+        <i class="nav-icon fab fa-accusoft"></i>
+        <p>
+            Dasar
+        </p>
+    </a>
+</li>
 <li class="nav-header">Laporan</li>
 <li class="nav-item">
     <a href="{{ route('laporan.index') }}" class="nav-link {{ $title === 'Laporan' ? 'active' : '' }}">
-        <i class="nav-icon fas fa-tree"></i>
+        <i class="nav-icon fas fa-book"></i>
         <p>
             Laporan
         </p>
@@ -53,7 +62,7 @@
 </li>
 <li class="nav-item">
     <a href="{{ route('transaksi.index') }}" class="nav-link {{ $title === 'Transaksi' ? 'active' : '' }}">
-        <i class="nav-icon fas fa-edit"></i>
+        <i class="nav-icon fas fa-money-bill"></i>
         <p>
             Transaksi
         </p>
@@ -61,7 +70,7 @@
 </li>
 <li class="nav-item">
     <a href="{{ route('user.index') }}" class="nav-link {{ $title === 'User Management' ? 'active' : '' }}">
-        <i class="nav-icon fas fa-table"></i>
+        <i class="nav-icon fas fa-user-check"></i>
         <p>
             User Management
         </p>

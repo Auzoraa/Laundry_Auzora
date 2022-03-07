@@ -96,15 +96,15 @@
                     </div>
                     <div class="form-floating mb-2">
                       <label for="nama">Nama Outlet</label>
-                      <input type="text" class="form-control" id="nama" name="nama">
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Pt Indonesia">
                     </div>
                     <div class="form-floating mb-2">
                       <label for="alamat">Alamat</label>
-                      <input type="text" class="form-control" id="alamat" name="alamat">
+                      <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Wr. Duku">
                     </div>
                     <div class="form-floating mb-2">
                       <label for="tlp">No.Phone</label>
-                      <input type="text" class="form-control" id="tlp" name="tlp">
+                      <input type="text" class="form-control" id="tlp" name="tlp" placeholder="08569665856">
                       </div>
                     <button class="w-100 btn btn-lg btn-info swalDefaultoutletInput" type="submit">Tambah Outlet</button>
                 </form>

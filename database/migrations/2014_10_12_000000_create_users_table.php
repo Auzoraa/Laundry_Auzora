@@ -24,8 +24,35 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['admin', 'kasir', 'owner']);
             $table->timestamps();
         });
+        Account::create(
+            [
+                'nama' => 'admin',
+                'username' => 'admin',
+                'password' => 'admin',
+                'id_outlet' => 1,
+                'role' => 'admin'
+            ],
+        );
+        Account::create(
+            [
+                'nama' => 'kasir',
+                'username' => 'kasir',
+                'password' => 'kasir',
+                'id_outlet' => 1,
+                'role' => 'kasir'
+            ],
+        );
+        Account::create(
+            [
+                'nama' => 'owner',
+                'username' => 'owner',
+                'password' => 'owner',
+                'id_outlet' => 1,
+                'role' => 'owner'
+            ],
+        );
     }
-
+    
     /**
      * Reverse the migrations.
      *

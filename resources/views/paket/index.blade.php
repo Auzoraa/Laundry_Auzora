@@ -123,11 +123,11 @@
                         </div>
                         <div class="form-floating mb-2">
                             <label for="nama_paket">Nama</label>
-                            <input type="text" class="form-control" id="nama_paket" name="nama_paket">
+                            <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Auzora">
                         </div>
                         <div class="form-floating mb-2">
                             <label for="harga">Harga Paket</label>
-                            <input type="text" class="form-control" id="harga" name="harga">
+                            <input type="text" class="form-control" id="harga" name="harga" placeholder="25000">
                         </div>
                         <button class="w-100 btn btn-lg btn-info swalDefaultpaketInput" type="submit">Tambah
                             Paket</button>

@@ -76,15 +76,15 @@
                     </div>
                     <div class="form-floating mb-2">
                         <label for="nama_barang">Nama Barang</label>
-                      <input type="text" class="form-control" id="nama_barang" name="nama_barang">
+                      <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="Celana">
                     </div>
                     <div class="form-floating mb-2">
                         <label for="merk_barang">Merk Barang</label>
-                      <input type="text" class="form-control" id="merk_barang" name="merk_barang">
+                      <input type="text" class="form-control" id="merk_barang" name="merk_barang" placeholder="H&M">
                     </div>
                     <div class="form-floating mb-2">
                         <label for="qty">Qty</label>
-                        <input type="number" class="form-control" id="qty" name="qty">
+                        <input type="number" class="form-control" id="qty" name="qty" placeholder="***">
                       </div>
                     <div class="form-group mb-2">
                         <div class="section-title mt-0"><b>Kondisi</b></div>

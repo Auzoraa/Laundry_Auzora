@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DasarController;
 use App\Http\Controllers\BarangInvController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dasar', [DasarController::class, 'index']);
     Route::resource('paket', PaketController::class);
     Route::resource('outlet', OutletController::class);
     Route::resource('member', MemberController::class);
@@ -41,7 +43,7 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::post('/barangInv/import_excel', [BarangInvController::class, 'import_excel']);
     Route::post('/paket/import_excel', [PaketController::class, 'import_excel']);
     Route::post('/outlet/import_excel', [OutletController::class, 'import_excel']);
-
+    Route::get('/pegawai/cetak_pdf', [PegawaiController::class, 'cetak_pdf']);
     
 });
 
