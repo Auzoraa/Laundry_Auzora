@@ -87,7 +87,7 @@
                             <label for="">Pembayaran</label>
                             <input type="text" class="form-control" name="bayar" id="" value="0" style="width:170px">
                             <div class="">
-                                <button class="btn btn-info" style="margin-top: 10px; width:170px"
+                                <button class="btn btn-info swalDefaulttransSuccess" style="margin-top: 10px; width:170px"
                                     type="submit">Bayar</button>
                             </div>
                         </td>

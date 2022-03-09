@@ -12,7 +12,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,9 +33,8 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::resource('transaksi', TransaksiController::class);
     Route::get('/transaksi', [TransaksiController::class, 'index']);
     Route::post('/transaksi/store', [TransaksiController::class, 'store']);
-    Route::get('/transaksi/nota', [TransaksiController::class, 'notaKecil'])->name('transaksi.nota_kecil');
-    Route::resource('barangInv', BarangInvController::class);
-    Route::resource('laporan', LaporanController::class);
+    Route::get('/nota', [TransaksiController::class, 'notaKecil']);
+    Route::resource('barangInv', BarangInvController::class);    
     Route::resource('user', UserController::class);
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('member/export/xls', [MemberController::class, 'export']);
@@ -47,6 +46,18 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::post('/paket/import_excel', [PaketController::class, 'import_excel']);
     Route::post('/outlet/import_excel', [OutletController::class, 'import_excel']);
     Route::get('/pegawai/cetak_pdf', [PegawaiController::class, 'cetak_pdf']);
+
+    Route::get('/laporan', function () {
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $data = App\Models\Transaksi::whereBetween('created_at',[$start_date,$end_date])->get();
+        } else {
+            $data = App\Models\Transaksi::latest()->get();
+        }
+        
+        return view('laporan.index', compact('data'), ["title" => "Laporan"]);
+    });    
 });
 
 Route::middleware('guest')->group(function(){

@@ -80,8 +80,7 @@ class TransaksiController extends Controller
                 'keterangan' => ''
             ]);
         }
-
-        return redirect('/transaksi/nota');
+        return redirect()->back()->with('transSuccess', 'Transaksi Berhasil');
     }
 
     /**

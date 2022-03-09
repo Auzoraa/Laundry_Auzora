@@ -53,7 +53,7 @@
 </li>
 <li class="nav-header">Laporan</li>
 <li class="nav-item">
-    <a href="{{ route('laporan.index') }}" class="nav-link {{ $title === 'Laporan' ? 'active' : '' }}">
+    <a href="/laporan" class="nav-link {{ $title === 'Laporan' ? 'active' : '' }}">
         <i class="nav-icon fas fa-book"></i>
         <p>
             Laporan

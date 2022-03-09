@@ -9,13 +9,20 @@ use PDF;
 
 class LaporanController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['member'] = Member::get();
-        $data['paket'] = Paket::get();
+    // public function index(Request $request)
+    // {
+    //     if (request()->start_date || request()->end_date) {
+    //         $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+    //         $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+    //         $data = App\Models\Registrant::whereBetween('created_at',[$start_date,$end_date])->get();
+    //     } else {
+    //         $data = App\Models\Registrant::latest()->get();
+    //     }
+        
+    //     return view('welcome', compact('data'));
 
-        return view('laporan.index', $data, ["title" => "Laporan"]);
-    }
+    //     return view('laporan.index', $data, ["title" => "Laporan"]);
+    
 
     // public function getData($awal, $akhir)
     // {
