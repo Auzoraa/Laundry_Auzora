@@ -3,15 +3,14 @@
       <!-- Default box -->
 <div class="card">
   <div class="card-header d-flex">
-    <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalInput">
+    <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#exampleModalInput">
         Tambah Data
     </button>
-    <button type="button" id="btn-export-xls" class="d-flex btn btn-sm btn-success mr-1"><i class="bi bi-excel"
+    <button type="button" id="btn-export-xls" class="d-flex btn btn-success mr-1"><i class="bi bi-excel"
             style="color: rgb(1, 138, 92)"></i> Export Xls</button>
-    <button type="button" class="d-flex btn btn-sm btn-danger"><i class="bi bi-print"
+    <button type="button" class="d-flex btn btn-danger"><i class="bi bi-print"
             style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
-    <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel">
-        Import Xls</button>
+    <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel"><i class="fas fa-file-excel"></i> Import Xls</button>
 </div>
 <div class="card-body">
     <div class="table-stats order-table ov-h">

@@ -35,18 +35,18 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function notaKecil()
-    // {
-    //     $transaksi = Transaksi::find(session('kode_invoice)'));
-    //     if (! $transaksi) {
-    //         abort(404);
-    //     }
-    //     $detail = Transaksi::with('id_outlet')
-    //         ->where('kode_invoice)', session('kode_invoice)'))
-    //         ->get();
+    public function notaKecil()
+    {
+        $transaksi = Transaksi::find(session('kode_invoice)'));
+        if (! $transaksi) {
+            abort(404);
+        }
+        $detail = Transaksi::with('id_outlet')
+            ->where('kode_invoice)', session('kode_invoice)'))
+            ->get();
         
-    //     return view('transaksi.nota_kecil', compact('transaksi', 'detail'));
-    // }
+        return view('transaksi.nota_kecil', compact('transaksi', 'detail'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -81,7 +81,7 @@ class TransaksiController extends Controller
             ]);
         }
 
-        return view('transaksi.index')->with('success', 'Input berhasil');
+        return redirect('/transaksi/nota');
     }
 
     /**

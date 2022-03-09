@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Exports\MemberExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MemberImport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MemberController extends Controller
 {

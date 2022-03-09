@@ -61,7 +61,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('transaksi.index') }}" class="nav-link {{ $title === 'Transaksi' ? 'active' : '' }}">
+    <a href="/transaksi" class="nav-link {{ $title === 'Transaksi' ? 'active' : '' }}">
         <i class="nav-icon fas fa-money-bill"></i>
         <p>
             Transaksi

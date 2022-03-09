@@ -31,6 +31,9 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::resource('outlet', OutletController::class);
     Route::resource('member', MemberController::class);
     Route::resource('transaksi', TransaksiController::class);
+    Route::get('/transaksi', [TransaksiController::class, 'index']);
+    Route::post('/transaksi/store', [TransaksiController::class, 'store']);
+    Route::get('/transaksi/nota', [TransaksiController::class, 'notaKecil'])->name('transaksi.nota_kecil');
     Route::resource('barangInv', BarangInvController::class);
     Route::resource('laporan', LaporanController::class);
     Route::resource('user', UserController::class);
@@ -44,7 +47,6 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::post('/paket/import_excel', [PaketController::class, 'import_excel']);
     Route::post('/outlet/import_excel', [OutletController::class, 'import_excel']);
     Route::get('/pegawai/cetak_pdf', [PegawaiController::class, 'cetak_pdf']);
-    
 });
 
 Route::middleware('guest')->group(function(){
