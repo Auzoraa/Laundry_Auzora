@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\Member;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class MemberImport implements ToModel
+class MemberImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,10 +16,15 @@ class MemberImport implements ToModel
     public function model(array $row)
     {
         return new Member([
-            'nama'     => $row[1],
-            'alamat'    => $row[2],
-            'jenis_kelamin'    => $row[3],
-            'tlp'    => $row[4],
+            'nama'     => $row['nama'],
+            'alamat'    => $row['alamat'],
+            'jenis_kelamin'    => $row['jenis_kelamin'],
+            'tlp'    => $row['tlp'],
         ]);
+    }
+
+    public function headingRow(): int
+    {
+        return 3;
     }
 }

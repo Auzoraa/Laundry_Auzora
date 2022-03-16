@@ -1,5 +1,17 @@
 @extends('template.header')
 @section('content')
+@if ($errors->any())
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
     <!-- Default box -->
         <div class="card">
             <div class="card-header d-flex">
@@ -7,7 +19,7 @@
                     Tambah Data
                 </button>
                 <button type="button" id="btn-export-xls" class="d-flex btn btn-success mr-1">Export Xls</button>
-                <button type="button" class="d-flex btn btn-danger">Export Pdf</button>
+                <a href="/member/cetak_pdf" target="_blank" rel="noopener noreferrer" class="btn btn-danger">Pdf</a>
                 <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel"><i class="fas fa-file-excel"></i> Import Xls</button>
             </div>
         <div class="card-body">
@@ -302,6 +314,9 @@
     <script>
         $('#btn-export-xls').on('click', function(e) {
             window.location = "{{ url('member/export/xls') }}";
+        })
+        $('#btn-export-pdf').on('click', function(e) {
+            window.location = "{{ url('member/cetak_pdf') }}";
         })
     </script>
 @endpush

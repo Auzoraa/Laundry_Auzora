@@ -14,4 +14,12 @@ class DetailTransaksi extends Model
     protected $keyType = 'string';
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function paket(){
+        return $this->hasMany('App\Paket');
+    }
+
+    public function transakski(){
+        return $this->hasOne('App\Transaksi');
+    }
+
 }

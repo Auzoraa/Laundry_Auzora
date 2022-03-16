@@ -1,22 +1,19 @@
 @extends('template.header')
 @section('content')
-    <!-- Default box -->
-    {{-- <div class="card">
-        <div class="card-body">
-        @if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <ul>
-            @foreach ($errorrs->any() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-      </div>
-      @endif
-      @if (session('success'))
+    @endif
+    <!-- Default box -->
+    {{-- @if (session('success'))
           <div class="alert alert-success" role="alert" id="success-alert">
             {{ session('seccess') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -34,7 +31,8 @@
                     style="color: rgb(1, 138, 92)"></i> Export Xls</button>
             <button type="button" class="d-flex btn btn-danger"><i class="bi bi-print"
                     style="color: rgb(40, 183, 250)"></i> Export Pdf</button>
-            <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel"><i class="fas fa-file-excel"></i> Import Xls</button>
+            <button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#importExcel"><i
+                    class="fas fa-file-excel"></i> Import Xls</button>
         </div>
         <div class="card-body">
             <table class="table " id="tbl-paket">
@@ -122,7 +120,8 @@
                         </div>
                         <div class="form-floating mb-2">
                             <label for="nama_paket">Nama</label>
-                            <input type="text" class="form-control" id="nama_paket" name="nama_paket" placeholder="Auzora">
+                            <input type="text" class="form-control" id="nama_paket" name="nama_paket"
+                                placeholder="Auzora">
                         </div>
                         <div class="form-floating mb-2">
                             <label for="harga">Harga Paket</label>

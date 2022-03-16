@@ -12,6 +12,7 @@
 
     {{-- data table --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css" />
+    <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('assets') }}/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Toastr -->
@@ -88,7 +89,7 @@
         text-decoration: none;
       }
   </style> --}}
-        <aside class="main-sidebar sidebar-light-info elevation-4">
+        <aside class="main-sidebar sidebar-light-info elevation-4 position-fixed">
             <!-- Main Sidebar Container -->
             @include('template.sidebar')
         </aside>

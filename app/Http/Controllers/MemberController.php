@@ -6,6 +6,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exports\MemberExport;
+use App\Http\Requests\StoreMemberRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MemberImport;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -51,12 +52,21 @@ class MemberController extends Controller
 		return redirect('/member')->with('import', 'Import Berhasil');
     }
     
+    // public function cetak_pdf()
+    // {
+    // 	$member = Member::all();
+ 
+    // 	$pdf = PDF::loadView('member.member_pdf',['member'=>$member]); 
+    // 	return $pdf->download('member.pdf');
+    // }
+
     public function cetak_pdf()
     {
-    	$member = Member::all();
- 
-    	$pdf = PDF::loadview('member_pdf',['member'=>$member]);
-    	return $pdf->download('laporan-member-pdf', [ "title" => "Member" ]);
+    	$data = Member::all();
+        $pdf  = PDF::loadView('member.member_pdf', compact('data'));
+        $pdf->setPaper('a4', 'potrait');
+        
+    	return $pdf->download('laporan-pdf');
     }
 
 
@@ -76,7 +86,7 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMemberRequest $request)
     {
         $data = New Member;
         $data->nama = $request->nama;

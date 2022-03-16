@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use app\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,8 +15,8 @@ class UserController extends Controller
         return view('user.index',compact('data'), [ "title" => "User Management" ]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(StoreUserRequest $request)
+    { 
         $validatedData = $request->validate([
             'name'=> 'required|max:16',
             'email' => 'required|max:255',

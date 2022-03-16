@@ -6,6 +6,7 @@ use App\Models\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exports\OutletExport;
+use App\Http\Requests\StoreOutletRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\OutletImport;
 
@@ -61,7 +62,7 @@ class OutletController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOutletRequest $request)
     {
         $data = New Outlet;
         // $data->id = $request->id;

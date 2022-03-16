@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BarangInv;
 use Illuminate\Http\Request;
 use App\Exports\BarangInvExport;
+use App\Http\Requests\StoreBarangInvRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\BarangInvImport;
 
@@ -60,7 +61,7 @@ class BarangInvController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBarangInvRequest $request)
     {
         $data = New barangInv;
         $data->nama_barang = $request->nama_barang;

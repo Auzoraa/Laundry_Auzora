@@ -1,5 +1,17 @@
 @extends('template.header')
 @section('content')
+@if ($errors->any())
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
       <!-- Default box -->
 <div class="card">
   <div class="card-header d-flex">
@@ -35,28 +47,6 @@
                   <td>{{ $item->alamat }}</td>
                   <td>{{ $item->tlp }}</td>
                   <td>
-                    {{-- {!! Form::open(['method' => 'DELETE','route' => ['outlet.destroy', $item->id],'style'=>'display:inline']) !!}
-                      <button onclick="
-                      swal({
-                        title: 'Esta seguro de realizar esta Acción?',
-                        text: 'Si procede este usuario será eliminado!',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#DD6B55',
-                        confirmButtonText: 'Eliminar!',
-                        cancelButtonText: 'Cancelar',
-                        closeOnConfirm: false,
-                        closeOnCancel: false
-                      },
-                      function(){
-                        swal('Usuario eliminado!', 'Este usuario fue eliminado de nuestros registros.', 'success');
-                      });"
-                        class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar usuario"> <i class="material-icons">delete</i> 
-                      </button>
-                      {!! Form::close() !!} --}}
-                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalDelete{{ $item->id }}">
-                      <i class="bi bi-trash-fill"></i>
-                    </button> --}}
                     <div class="d-flex">
                     <button type="button" class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#exampleModalUpdate{{ $item->id }}">
                       <i class="bi bi-pencil-square"></i>

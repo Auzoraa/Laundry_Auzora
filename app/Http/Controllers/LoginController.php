@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLoginRequest;
 use App\Models\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function authenticate(Request $request)
+    public function authenticate(StoreLoginRequest $request)
     {
             $credentials = $request->validate([
                 'name' => 'required',

@@ -109,7 +109,7 @@
                     </tr>
                     <tr style="background-color: aquamarine;color:black;font-weight:bold;font-size:1em">
                         <td colspan="3" align="right">Total bayar</td>
-                        <td><span id="total">0</span></td>
+                        <td><input type="hidden" name="total" class="total"><span id="total"></span></td>
                     </tr>
                 </tfoot>
             </table>
@@ -223,6 +223,7 @@
                 $(a).closest('tr').find('.subTotal').text(count)
                 $('#subtotal').text(subtotal)
                 $('#total').text(total)
+                $('.total').val(total)
 
             }
             //akhir hitot
@@ -295,6 +296,7 @@
                 total = subtotal - Number($('#diskon').val()) + Number($('#pajak-harga').val())
                 $('#subtotal').text(subtotal)
                 $('#total').text(total)
+                $('.total').val(total)
             }
         });
     </script>

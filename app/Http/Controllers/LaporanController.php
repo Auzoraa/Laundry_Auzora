@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
-use App\Models\Paket;
+use App\Models\Transaksi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use PDF;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
     // public function index(Request $request)
     // {
-    //     if (request()->start_date || request()->end_date) {
-    //         $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
-    //         $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
-    //         $data = App\Models\Registrant::whereBetween('created_at',[$start_date,$end_date])->get();
-    //     } else {
-    //         $data = App\Models\Registrant::latest()->get();
-    //     }
-        
-    //     return view('welcome', compact('data'));
+    //     $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+    //     $tanggalAkhir = date('Y-m-d');
 
-    //     return view('laporan.index', $data, ["title" => "Laporan"]);
-    
+    //     if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+    //         $tanggalAwal = $request->tanggal_awal;
+    //         $tanggalAkhir = $request->tanggal_akhir;
+    //     }
+
+    //     return view('laporan.index', compact('tanggalAwal', 'tanggalAkhir'), [ "title" => "Laporan" ]);
+    // }
 
     // public function getData($awal, $akhir)
     // {
@@ -33,24 +32,29 @@ class LaporanController extends Controller
     //         $tanggal = $awal;
     //         $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
 
+    //         $nama_paket = Paket::where('created_at', 'LIKE', "%$tanggal%");
+    //         $harga = Paket::where('created_at', 'LIKE', "%$tanggal%");
+    //         // $total_pengeluaran = Pengeluaran::where('created_at', 'LIKE', "%$tanggal%")->sum('nominal');
+
+    //         // $pendapatan = $total_penjualan - $total_pembelian - $total_pengeluaran;
+    //         // $total_pendapatan += $pendapatan;
+
     //         $row = array();
     //         $row['DT_RowIndex'] = $no++;
-    //         $row['tanggal'] = date($tanggal, false);
-    //         $row['penjualan'] = format_number($total_penjualan);
-    //         $row['pembelian'] = format_number($total_pembelian);
-    //         $row['pengeluaran'] = format_number($total_pengeluaran);
-    //         $row['pendapatan'] = format_number($pendapatan);
+    //         $row['created_at'] = date($tanggal, false);
+    //         $row['nama_paket'] = ($nama_paket);
+    //         $row['harga'] = ($harga);
 
     //         $data[] = $row;
     //     }
 
     //     $data[] = [
     //         'DT_RowIndex' => '',
-    //         'tanggal' => '',
-    //         'penjualan' => '',
-    //         'pembelian' => '',
-    //         'pengeluaran' => 'Total Pendapatan',
-    //         'pendapatan' => format_number($total_pendapatan),
+    //         'created_at' => '',
+    //         'nama_paket' => '',
+    //         'harga' => '',
+    //         // 'pengeluaran' => 'Total Pendapatan',
+    //         // 'pendapatan' => number_format($total_pendapatan),
     //     ];
 
     //     return $data;
@@ -59,18 +63,53 @@ class LaporanController extends Controller
     // public function data($awal, $akhir)
     // {
     //     $data = $this->getData($awal, $akhir);
-
-    //     return datatables()
+    //     return DataTables()
     //         ->of($data)
     //         ->make(true);
     // }
 
-    // public function exportPDF($awal, $akhir)
+    // public function exportPDF($data, $sta)
     // {
-    //     $data = $this->getData($awal, $akhir);
-    //     $pdf  = PDF::loadView('laporan.pdf', compact('awal', 'akhir', 'data'));
+    //     $data = $this->index($start_date, $end_date);
+    //     $pdf  = PDF::loadView('laporan.pdf', compact('start_date', 'end_date', 'data'));
     //     $pdf->setPaper('a4', 'potrait');
         
-    //     return $pdf->stream('Laporan-pendapatan-'. date('Y-m-d-his') .'.pdf');
+    //     return $pdf->stream('Laporan-'. date('Y-m-d-his') .'.pdf');
     // }
+
+    public function cetak_pdf(Request $r)
+    {
+    	$laporan = Transaksi::whereBetween('tgl', [$r->start_date,$r->end_date]);
+ 
+    	$pdf = PDF::loadview('laporan.laporan_pdf',['laporan'=>$laporan]);
+    	return $pdf->download('laporan-pdf');
+    }
+
+    public function index(Request $request)
+    {
+        if (request()->start_date || request()->end_date) {
+        $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+        $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+        $data = Transaksi::whereBetween('transaksi.created_at',[$start_date,$end_date])
+        ->join('member', 'transaksi.id_member','=','member.id')
+        ->select('transaksi.*','member.nama')
+        ->get();
+        $total = Transaksi::whereBetween('transaksi.created_at',[$start_date,$end_date])
+        ->get()
+        ->sum('total');
+        
+    } else {
+        $data = Transaksi::latest()
+        ->join('member', 'transaksi.id_member','=','member.id')
+        ->select('transaksi.*', 'member.nama')
+        ->get();
+        $total = DB::table('transaksi')
+        ->get()
+        ->sum('total');
+    }
+    
+    return view('laporan.index', compact('data', 'total'), ["title" => "Laporan"]);
+    
+    }
+    
 }

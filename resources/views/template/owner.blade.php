@@ -6,12 +6,14 @@
     <a href="#" class="d-block">Owner</a>
   </div>
 </div>
-<li class="nav-header">Data</li>
-<li class="nav-item">
-  <a href="{{ route('laporan.index') }}" class="nav-link {{ $title === 'Laporan' ? 'active' : '' }}">
-      <i class="nav-icon fas fa-tree"></i>
-      <p>
-          Laporan
-      </p>
-  </a>
-</li>
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <li class="nav-header">Data</li>
+      <li class="nav-item">
+          <a href="/laporan" class="nav-link {{ $title === 'Laporan' ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                  Laporan
+              </p>
+          </a>
+      </li>

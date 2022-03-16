@@ -32,10 +32,6 @@
                   <td>{{ $item->role }}</td>
                   <td>
                       <div class="d-flex">
-                          <button type="button" class="btn btn-info btn-sm mr-1" data-toggle="modal"
-                              data-target="#exampleModalUpdate{{ $item->id }}">
-                              <i class="bi bi-pencil-square"></i>
-                          </button>
                           <form action="{{ route('user.destroy', $item->id) }}" method="POST">
                               @method('DELETE')
                               @csrf

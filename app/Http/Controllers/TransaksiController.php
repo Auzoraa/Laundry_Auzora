@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTransaksi;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use App\Models\Member;
@@ -35,18 +36,7 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function notaKecil()
-    {
-        $transaksi = Transaksi::find(session('kode_invoice)'));
-        if (! $transaksi) {
-            abort(404);
-        }
-        $detail = Transaksi::with('id_outlet')
-            ->where('kode_invoice)', session('kode_invoice)'))
-            ->get();
-        
-        return view('transaksi.nota_kecil', compact('transaksi', 'detail'));
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,12 +44,13 @@ class TransaksiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTransaksi $request)
     {
         $request['id_outlet'] = auth()->user()->id_outlet;
         $request['kode_invoice'] = $this->generateKodeInvoice();
         $request['tgl_bayar'] = ($request->bayar == 0?NULL:date('Y-m-d H:i:s'));
         $request['status'] = 'baru';
+        // $request['total'] = $request->total;
         $request['dibayar'] = ($request->bayar == 0?'belum_dibayar':'dibayar');
         $request['id_user'] = auth()->user()->id;
 
@@ -80,9 +71,19 @@ class TransaksiController extends Controller
                 'keterangan' => ''
             ]);
         }
-        return redirect()->back()->with('transSuccess', 'Transaksi Berhasil');
+        return redirect()->back()->with('transSuccess', 'Transaksi berhasil dilakukan!!');
     }
 
+    public function notaKecil()
+    {
+        $transaksi = Transaksi::find(session('id)'));
+        
+        $detail = Transaksi::with('id_outlet')
+            ->where('id)', session('id)'))
+            ->get();
+        
+        return view('transaksi.nota_kecil', compact('transaksi', 'detail'));
+    }
     /**
      * Display the specified resource.
      *

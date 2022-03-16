@@ -25,39 +25,32 @@ use Carbon\Carbon;
 */
 
 Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
+    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dasar', [DasarController::class, 'index']);
-    Route::resource('paket', PaketController::class);
-    Route::resource('outlet', OutletController::class);
-    Route::resource('member', MemberController::class);
-    Route::resource('transaksi', TransaksiController::class);
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/pdf', [LaporanController::class, 'cetak_pdf'])->name('laporan.cetak_pdf');
     Route::get('/transaksi', [TransaksiController::class, 'index']);
-    Route::post('/transaksi/store', [TransaksiController::class, 'store']);
-    Route::get('/nota', [TransaksiController::class, 'notaKecil']);
-    Route::resource('barangInv', BarangInvController::class);    
-    Route::resource('user', UserController::class);
-    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/nota', [TransaksiController::class, 'notaKecil'])->name('transaksi.nota_kecil');
     Route::get('member/export/xls', [MemberController::class, 'export']);
     Route::get('paket/export/xls', [PaketController::class, 'export']);
     Route::get('outlet/export/xls', [OutletController::class, 'export']);
     Route::get('barangInv/export/xls', [BarangInvController::class, 'export']);
+    Route::get('/member/cetak_pdf', [MemberController::class, 'cetak_pdf']);
+
+    Route::resource('paket', PaketController::class);
+    Route::resource('outlet', OutletController::class);
+    Route::resource('member', MemberController::class);
+    Route::resource('barangInv', BarangInvController::class);    
+    Route::resource('user', UserController::class);
+
+    Route::post('/transaksi/store', [TransaksiController::class, 'store']);
+    Route::post('/logout', [LoginController::class, 'logout']);
     Route::post('/member/import_excel', [MemberController::class, 'import_excel']);
     Route::post('/barangInv/import_excel', [BarangInvController::class, 'import_excel']);
     Route::post('/paket/import_excel', [PaketController::class, 'import_excel']);
     Route::post('/outlet/import_excel', [OutletController::class, 'import_excel']);
-    Route::get('/pegawai/cetak_pdf', [PegawaiController::class, 'cetak_pdf']);
 
-    Route::get('/laporan', function () {
-        if (request()->start_date || request()->end_date) {
-            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
-            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
-            $data = App\Models\Transaksi::whereBetween('created_at',[$start_date,$end_date])->get();
-        } else {
-            $data = App\Models\Transaksi::latest()->get();
-        }
-        
-        return view('laporan.index', compact('data'), ["title" => "Laporan"]);
-    });    
 });
 
 Route::middleware('guest')->group(function(){

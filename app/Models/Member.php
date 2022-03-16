@@ -13,4 +13,8 @@ class Member extends Model
     public $incrementing = false;
     protected $keyType = 'string';
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function transaksi(){
+        return $this->belongsTo('App\Transaksi');
+    }
 }

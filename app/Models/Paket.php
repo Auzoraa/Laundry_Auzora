@@ -13,4 +13,8 @@ class Paket extends Model
     public $incrementing = false;
     protected $guarded = ['id', 'crated_at', 'updated_at'];
     protected $keyType = 'string';
+
+    public function detailTransaksi(){
+        return $this->belongsTo('App\DetailTransaksi');
+    }
 }
