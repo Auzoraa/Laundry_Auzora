@@ -7,6 +7,7 @@ use App\Http\Controllers\BarangInvController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\PenjemputanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserController;
@@ -35,12 +36,14 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::get('member/export/xls', [MemberController::class, 'export']);
     Route::get('paket/export/xls', [PaketController::class, 'export']);
     Route::get('outlet/export/xls', [OutletController::class, 'export']);
+    Route::get('penjemputan/export/xls', [PenjemputanController::class, 'export']);
     Route::get('barangInv/export/xls', [BarangInvController::class, 'export']);
     Route::get('/member/cetak_pdf', [MemberController::class, 'cetak_pdf']);
 
     Route::resource('paket', PaketController::class);
     Route::resource('outlet', OutletController::class);
     Route::resource('member', MemberController::class);
+    Route::resource('penjemputan', PenjemputanController::class);
     Route::resource('barangInv', BarangInvController::class);    
     Route::resource('user', UserController::class);
 
@@ -49,6 +52,7 @@ Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::post('/member/import_excel', [MemberController::class, 'import_excel']);
     Route::post('/barangInv/import_excel', [BarangInvController::class, 'import_excel']);
     Route::post('/paket/import_excel', [PaketController::class, 'import_excel']);
+    Route::post('/penjemputan/import_excel', [PenjemputanController::class, 'import_excel']);
     Route::post('/outlet/import_excel', [OutletController::class, 'import_excel']);
 
 });

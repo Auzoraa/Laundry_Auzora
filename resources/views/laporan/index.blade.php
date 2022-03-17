@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="my-2">
+            <div class="col">
                 <form action="/laporan" method="GET">
                     <div class="input-group mb-3">
                         <input type="date" class="form-control mr-3" name="start_date">
@@ -11,8 +11,9 @@
                         <button class="btn btn-info" type="submit">GET</button>
                     </div>
                 </form>
-                <a href="/laporan/pdf" target="_blank" class="btn btn-sm btn-flat btn-danger ml-auto">Export PDF</a>
-            </div>
+                <button type="button" id="btn-export-xls" class="d-flex btn btn-success btn-flat"><i class="bi bi-excel"
+                    style="color: rgb(1, 138, 92)"></i> Export Xls</button>
+            </div> 
             <table class="table">
                 <thead>
                     <tr>
@@ -54,3 +55,10 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    $('#btn-export-xls').on('click', function(e) {
+        window.location = "{{ url('laporan/export/xls') }}";
+    })
+</script>
+@endpush

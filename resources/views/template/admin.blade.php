@@ -43,6 +43,15 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('penjemputan.index') }}"
+                class="nav-link {{ $title === 'Penjemputan Barang' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>
+                    Penjemputan Barang
+                </p>
+            </a>
+        </li>
         <li class="nav-header">Pemrograman Dasar</li>
         <li class="nav-item">
             <a href="/dasar" class="nav-link {{ $title === 'Dasar' ? 'active' : '' }}">

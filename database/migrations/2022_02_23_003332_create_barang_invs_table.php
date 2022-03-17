@@ -13,7 +13,7 @@ class CreateBarangInvsTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang_inv', function (Blueprint $table) {
+        Schema::create('baranginv', function (Blueprint $table) {
             $table->id();
             $table->string('nama_barang', 100);
             $table->string('merk_barang', 100);
@@ -31,6 +31,6 @@ class CreateBarangInvsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang_inv');
+        Schema::dropIfExists('baranginv');
     }
 }

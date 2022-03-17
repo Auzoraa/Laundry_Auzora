@@ -13,7 +13,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=> 'required',
+            'email' => 'required|email',
+            'id_outlet' => 'required|numeric',
+            'role' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama belum diisi!', 
+            'email.required' => 'Email paket belum diisi!',
+            'email.email' => 'Email bukan email!',
+            'id_outlet.required' => 'Id Outlet belum diisi',
+            'id_outlet.numeric' => 'Id Outlet bukan angka',
+            'role.required' => 'Role belum diisi',
         ];
     }
 }

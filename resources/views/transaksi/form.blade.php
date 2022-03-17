@@ -218,8 +218,12 @@
                 let subTotalAwal = Number($(a).closest('tr').find('.subTotal').text());
                 console.info(qty, harga, subTotalAwal)
                 let count = qty * harga;
+                let dis = ($('#diskon').val()/100)
+                let pjk = ($('#pajak-harga').val()/100)
                 subtotal = subtotal - subTotalAwal + count
-                total = subtotal - Number($('#diskon').val()) + Number($('#pajak-harga').val())
+                diskon = subtotal - (subtotal*dis)
+                pajak = subtotal + (subtotal*pjk)
+                total = subtotal - diskon + pajak
                 $(a).closest('tr').find('.subTotal').text(count)
                 $('#subtotal').text(subtotal)
                 $('#total').text(total)
@@ -293,7 +297,11 @@
                 $('#tblTransaksi tbody').append(data);
 
                 subtotal += Number(harga)
-                total = subtotal - Number($('#diskon').val()) + Number($('#pajak-harga').val())
+                let dis = ($('#diskon').val()/100)
+                diskon = subtotal - (subtotal*dis)
+                let pjk = ($('#pajak-harga').val()/100)
+                pajak = subtotal + (subtotal*pjk)
+                total = subtotal - diskon + pajak
                 $('#subtotal').text(subtotal)
                 $('#total').text(total)
                 $('.total').val(total)
